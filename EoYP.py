@@ -28,12 +28,96 @@ TEAL_BAR_WIDTH = 390
 TEAL_BAR_HEIHGT = 60
 IMAGE_RESIZE_WIDTH = 130
 IMAGE_RESIZE_HEIGHT = 125
+PREVIEW_RESIZE_WIDTH = 320
+PREVIEW_RESIZE_HEIGHT = 600
+
+def open_images():
+
+    global monster_photo1
+    global monster_photo2
+    global monster_photo3
+    global monster_photo4
+    global monster_photo5
+    global monster_photo6
+    global monster_photo7
+
+    global monster_image1
+    global monster_image2
+    global monster_image3
+    global monster_image4
+    global monster_image5
+    global monster_image6
+    global monster_image7
+
+    global monster_option1
+    global monster_option2
+    global monster_option3
+    global monster_option4
+    
+    global option1
+    global option2
+    global option3
+    global option4
+
+    image1_path= "EPK.png"
+    monster_image1 = Image.open(image1_path)
+    monster_image1 = monster_image1.resize((IMAGE_RESIZE_WIDTH,IMAGE_RESIZE_HEIGHT), Image.LANCZOS)
+    monster_photo1 = ImageTk.PhotoImage(monster_image1)
+
+    image2_path= "MULE.png" 
+    monster_image2 = Image.open(image2_path)
+    monster_image2 = monster_image2.resize((IMAGE_RESIZE_WIDTH,IMAGE_RESIZE_HEIGHT), Image.LANCZOS)
+    monster_photo2 = ImageTk.PhotoImage(monster_image2)
+
+    image3_path= "OG_BIG.png" 
+    monster_image3 = Image.open(image3_path)
+    monster_image3 = monster_image3.resize((IMAGE_RESIZE_WIDTH,IMAGE_RESIZE_HEIGHT), Image.LANCZOS)
+    monster_photo3 = ImageTk.PhotoImage(monster_image3)
+
+    image4_path= "PIPELINE_PUNCH.png" 
+    monster_image4 = Image.open(image4_path)
+    monster_image4 = monster_image4.resize((IMAGE_RESIZE_WIDTH,IMAGE_RESIZE_HEIGHT), Image.LANCZOS)
+    monster_photo4 = ImageTk.PhotoImage(monster_image4)
+
+    image5_path= "PUNCH.png" 
+    monster_image5 = Image.open(image5_path)
+    monster_image5 = monster_image5.resize((IMAGE_RESIZE_WIDTH,IMAGE_RESIZE_HEIGHT), Image.LANCZOS)
+    monster_photo5 = ImageTk.PhotoImage(monster_image5)
+
+    image6_path= "UFRR.png" 
+    monster_image6 = Image.open(image6_path)
+    monster_image6 = monster_image6.resize((IMAGE_RESIZE_WIDTH,IMAGE_RESIZE_HEIGHT), Image.LANCZOS)
+    monster_photo6 = ImageTk.PhotoImage(monster_image6)
+
+    image7_path= "ULTRA_FIEASTA.png" 
+    monster_image7 = Image.open(image7_path)
+    monster_image7 = monster_image7.resize((IMAGE_RESIZE_WIDTH,IMAGE_RESIZE_HEIGHT), Image.LANCZOS)
+    monster_photo7 = ImageTk.PhotoImage(monster_image7)
+
+    option1_path = "ULTRA_ROSA.png"
+    option1 = Image.open(option1_path)
+    option1 = option1.resize((145,213), Image.LANCZOS)
+    monster_option1 = ImageTk.PhotoImage(option1)
+
+    option2_path = "ULTRA_VIOLET.png"
+    option2 = Image.open(option2_path)
+    option2 = option2.resize((145,213), Image.LANCZOS)
+    monster_option2 = ImageTk.PhotoImage(option2)
+
+    option3_path = "WATER_MELLON.png"
+    option3 = Image.open(option3_path)
+    option3 = option3.resize((145,213), Image.LANCZOS)
+    monster_option3 = ImageTk.PhotoImage(option3)
+
+    option4_path = "OG.png"
+    option4 = Image.open(option4_path)
+    option4 = option4.resize((145,213), Image.LANCZOS)
+    monster_option4 = ImageTk.PhotoImage(option4)
 
 def id_1():
     global card_id
     card_id = 1
     
-
 def id_2():
     global card_id
     card_id = 2
@@ -72,10 +156,11 @@ def id_10():
 
 def return_function():
     frame_card_preview.pack_forget()
+    frame_adding_page.pack_forget()
     frame_mainpage_bg.pack(fill = BOTH, expand= TRUE)
     root.geometry("840x570")
 
-def output():
+def card_preview():
     global strength
     global speed
     global stealth
@@ -86,6 +171,43 @@ def output():
     global label_sneak_stat
     global label_cunning_stat
     global label_total_stat
+
+    global monster_image1
+    global monster_image2
+    global monster_image3
+    global monster_image4
+    global monster_image5
+    global monster_image6
+    global monster_image7
+
+    global monster_photo1
+    global monster_photo2
+    global monster_photo3
+    global monster_photo4
+    global monster_photo5
+    global monster_photo6
+    global monster_photo7
+
+    monster_image1 = monster_image1.resize((PREVIEW_RESIZE_WIDTH,PREVIEW_RESIZE_HEIGHT), Image.LANCZOS)
+    monster_photo1 = ImageTk.PhotoImage(monster_image1)
+
+    monster_image2 = monster_image2.resize((PREVIEW_RESIZE_WIDTH,PREVIEW_RESIZE_HEIGHT), Image.LANCZOS)
+    monster_photo2 = ImageTk.PhotoImage(monster_image2)
+
+    monster_image3 = monster_image3.resize((PREVIEW_RESIZE_WIDTH,PREVIEW_RESIZE_HEIGHT), Image.LANCZOS)
+    monster_photo3 = ImageTk.PhotoImage(monster_image3)
+
+    monster_image4 = monster_image4.resize((PREVIEW_RESIZE_WIDTH,PREVIEW_RESIZE_HEIGHT), Image.LANCZOS)
+    monster_photo4 = ImageTk.PhotoImage(monster_image4)
+
+    monster_image5 = monster_image5.resize((PREVIEW_RESIZE_WIDTH,PREVIEW_RESIZE_HEIGHT), Image.LANCZOS)
+    monster_photo5 = ImageTk.PhotoImage(monster_image5)
+
+    monster_image6 = monster_image6.resize((PREVIEW_RESIZE_WIDTH,PREVIEW_RESIZE_HEIGHT), Image.LANCZOS)
+    monster_photo6 = ImageTk.PhotoImage(monster_image6)
+
+    monster_image7 = monster_image7.resize((PREVIEW_RESIZE_WIDTH,PREVIEW_RESIZE_HEIGHT), Image.LANCZOS)
+    monster_photo7 = ImageTk.PhotoImage(monster_image7)
 
     if card_id == 1:
         strength = monsters["monster1"]["strength"]
@@ -164,10 +286,44 @@ def output():
     cunning_stat.config(text= cunning)
     total_stat.config(text= total)
 
+    label_preview_image.config(image= monster_image)
+
     frame_mainpage_bg.pack_forget()
     root.geometry("450x650")
 
     frame_card_preview.pack(fill=BOTH, expand = TRUE)
+    
+def chose_card1():
+    global chosen_card
+    global option1
+    global monster_option1
+    option1 = option1.resize((320,360), Image.LANCZOS)
+    monster_option1 = ImageTk.PhotoImage(option1)
+    chosen_card = monster_option1
+
+def chose_card2():
+    global chosen_card
+    global option2
+    global monster_option2
+    option2 = option2.resize((320,360), Image.LANCZOS)
+    monster_option2 = ImageTk.PhotoImage(option2)
+    chosen_card = monster_option2
+
+def chose_card3():
+    global chosen_card
+    global option3
+    global monster_option3
+    option3 = option3.resize((320,360), Image.LANCZOS)
+    monster_option3 = ImageTk.PhotoImage(option3)
+    chosen_card = monster_option3
+
+def chose_card4():
+    global chosen_card
+    global option4
+    global monster_option4
+    option4 = option4.resize((320,360), Image.LANCZOS)
+    monster_option4 = ImageTk.PhotoImage(option4)
+    chosen_card = monster_option4
 
 def adding_page():
 
@@ -180,6 +336,30 @@ def adding_page():
     global label_sneak_stat
     global label_cunning_stat
     global label_total_stat
+
+    global monster_option1
+    global monster_option2
+    global monster_option3
+    global monster_option4
+    
+    global option1
+    global option2
+    global option3
+    global option4
+
+    global entry_name
+
+    option1 = option1.resize((145,213), Image.LANCZOS)
+    monster_option1 = ImageTk.PhotoImage(option1)
+
+    option2 = option2.resize((145,213), Image.LANCZOS)
+    monster_option2 = ImageTk.PhotoImage(option2)
+
+    option3 = option3.resize((145,213), Image.LANCZOS)
+    monster_option3 = ImageTk.PhotoImage(option3)
+
+    option4 = option4.resize((145,213), Image.LANCZOS)
+    monster_option4 = ImageTk.PhotoImage(option4)
 
     frame_teal_bar1 = Frame(frame_adding_page, bg = LIGHT_TEAL, width= TEAL_BAR_WIDTH, height= 70)
     frame_teal_bar1.place(y = 10, x = 20)
@@ -229,20 +409,27 @@ def adding_page():
     entry_name = Entry(frame_adding_page, background= DARK_TEAL, fg = "white", font = (FONT_TYPE, 10), bd=3)
     entry_name.place(y = 20, x = 450, width= 350, height= 30)
 
-    button_card_option1 = Button(frame_adding_page, bg="white", width= 20, height= 14)
+    button_card_option1 = Button(frame_adding_page, image= monster_option1, width= 145, height= 213, command=chose_card1)
     button_card_option1.place(y = 65, x = 450)
+    button_card_option1.image = monster_option1
 
-    button_card_option2 = Button(frame_adding_page, bg="white", width= 20, height= 14)
+    button_card_option2 = Button(frame_adding_page, image= monster_option2, width= 145, height= 213, command=chose_card2)
     button_card_option2.place(y = 65, x = 650)
+    button_card_option2.image = monster_option2
 
-    button_card_option3 = Button(frame_adding_page, bg="white", width= 20, height= 14)
-    button_card_option3.place(y = 300, x = 450)   
+    button_card_option3 = Button(frame_adding_page, image= monster_option3, width= 145, height= 213, command=chose_card3)
+    button_card_option3.place(y = 300, x = 450)
+    button_card_option3.image = monster_option3
     
-    button_card_option4 = Button(frame_adding_page, bg="white", width= 20, height= 14)
-    button_card_option4.place(y = 300, x = 650)  
+    button_card_option4 = Button(frame_adding_page, image= monster_option4, width= 145, height= 213, command=chose_card4)
+    button_card_option4.place(y = 300, x = 650)
+    button_card_option4.image = monster_option4
 
-    button_confirm = Button(frame_adding_page, text= "Confirm", bg=LIGHT_TEAL, font = (FONT_TYPE, 13), command= card_confirmation)
+    button_confirm = Button(frame_adding_page, text= "Confirm", fg = DARK_RED, bg=LIGHT_TEAL, font = (FONT_TYPE, 13), command= card_confirmation)
     button_confirm.place(y = 530, x = 20)
+
+    button_cancel = Button(frame_adding_page, text="Cancel", fg = DARK_RED, font = (FONT_TYPE, 13), bg=LIGHT_TEAL, command= return_function)
+    button_cancel.place(y = 530, x = 100)
 
     frame_mainpage_bg.pack_forget()
     frame_card_confirmation.pack_forget()
@@ -250,6 +437,10 @@ def adding_page():
     root.geometry("840x570")
 
 def card_confirmation(): 
+
+    global entry_name
+
+    name = entry_name.get()
 
     frame_adding_page.pack_forget()
     frame_card_confirmation.pack(fill = BOTH, expand = TRUE)
@@ -267,11 +458,24 @@ def card_confirmation():
     label_total_stat.config(text = new_total)
     label_sneak_stat.config(text = new_stealth)
 
+    label_confirm_image = Label(frame_card_confirmation, image=chosen_card, width=320, height=360)
+    label_confirm_image.place(y = 15, x = 15)
+
+    label_monster_name = Label(frame_card_confirmation, text = name, fg = DARK_RED, font = (FONT_TYPE, 35), bg=GRAY_COLOUR)
+    label_monster_name.place(y = 250, x = 50)
+
+card_id = 0
+
+root = Tk()
+root.title ("Monster Catalogue")
+root.geometry("840x570")
+
+open_images()
 
 monsters= {
     "monster1" : {
         "monster_name": "Vexscream", 
-        "image_id": "black_monster.png",
+        "image_id": monster_photo1,
         "strength": 1, 
         "speed": 6, 
         "stealth": 21, 
@@ -280,7 +484,7 @@ monsters= {
     },
     "monster2" : {
         "monster_name": "Dawnmirage", 
-        "image_id": "badapple_monster.png",
+        "image_id": monster_photo2,
         "strength": 5, 
         "speed": 15, 
         "stealth": 18, 
@@ -289,7 +493,7 @@ monsters= {
     },
        "monster3" : {
         "monster_name": "Blazegolem", 
-        "image_id": "fullthrottle_monster.png",
+        "image_id": monster_photo3,
         "strength": 15, 
         "speed": 20, 
         "stealth": 23, 
@@ -298,7 +502,7 @@ monsters= {
     }, 
         "monster4" : {
         "monster_name": "Moldvine", 
-        "image_id": "khaotic_monster.png",
+        "image_id": monster_photo4,
         "strength": 21, 
         "speed": 18, 
         "stealth": 14, 
@@ -307,7 +511,7 @@ monsters= {
     }, 
         "monster5" : {
         "monster_name": "Vertexwing", 
-        "image_id": "pipelinepunch_monster.png",
+        "image_id": monster_photo5,
         "strength": 19, 
         "speed": 13, 
         "stealth": 18, 
@@ -316,7 +520,7 @@ monsters= {
     }, 
         "monster6" : {
         "monster_name": "Froststep", 
-        "image_id": "riopunch_monster.png",
+        "image_id": monster_photo6,
         "strength": 14, 
         "speed": 14, 
         "stealth": 17, 
@@ -325,7 +529,7 @@ monsters= {
     }, 
         "monster7" : {
         "monster_name": "Wispghoul", 
-        "image_id": "UPK_monster.png",
+        "image_id": monster_photo7,
         "strength": 17, 
         "speed": 19, 
         "stealth": 3, 
@@ -333,13 +537,6 @@ monsters= {
         "total_score": 41
     }
 }
-
-
-card_id = 0
-
-root = Tk()
-root.title ("Monster Catalogue")
-root.geometry("840x570")
 
 frame_mainpage_bg = Frame(root, bg=DARK_TEAL)
 frame_mainpage_bg.pack(fill=BOTH, expand=TRUE)
@@ -362,7 +559,7 @@ button_edit.place(y = 85, x = 270)
 button_sort = Button(frame_graytbox, text="Sort", fg = DARK_RED, font = (FONT_TYPE, 18), bg=LIGHT_TEAL)
 button_sort.place(y = 85, x = 420)
 
-button_print = Button(frame_graytbox, text="Print", fg = DARK_RED, font = (FONT_TYPE, 18), bg=LIGHT_TEAL, command= output)
+button_print = Button(frame_graytbox, text="Print", fg = DARK_RED, font = (FONT_TYPE, 18), bg=LIGHT_TEAL, command= card_preview)
 button_print.place(y = 85, x = 570)
 
 entry_searchbar = Entry(frame_graytbox, text="search", fg = DARK_RED, font = (FONT_TYPE, 10), bg=GRAY_COLOUR)
@@ -370,42 +567,6 @@ entry_searchbar.place(y = 170, x = 40, width = 580, height = 30)
 
 button_search = Button(frame_graytbox, text="Search", fg = DARK_RED, font = (FONT_TYPE, 13), bg=LIGHT_TEAL)
 button_search.place(y = 167, x = 640)
-
-image1_path= "black_monster.png"
-monster_image1 = Image.open(image1_path)
-monster_image1 = monster_image1.resize((IMAGE_RESIZE_WIDTH,IMAGE_RESIZE_HEIGHT), Image.LANCZOS)
-monster_photo1 = ImageTk.PhotoImage(monster_image1)
-
-
-image2_path= "badapple_monster.png" 
-monster_image2 = Image.open(image2_path)
-monster_image2 = monster_image2.resize((IMAGE_RESIZE_WIDTH,IMAGE_RESIZE_HEIGHT), Image.LANCZOS)
-monster_photo2 = ImageTk.PhotoImage(monster_image2)
-
-image3_path= "fullthrottle_monster.png" 
-monster_image3 = Image.open(image3_path)
-monster_image3 = monster_image3.resize((IMAGE_RESIZE_WIDTH,IMAGE_RESIZE_HEIGHT), Image.LANCZOS)
-monster_photo3 = ImageTk.PhotoImage(monster_image3)
-
-image4_path= "khaotic_monster.png" 
-monster_image4 = Image.open(image4_path)
-monster_image4 = monster_image4.resize((IMAGE_RESIZE_WIDTH,IMAGE_RESIZE_HEIGHT), Image.LANCZOS)
-monster_photo4 = ImageTk.PhotoImage(monster_image4)
-
-image5_path= "pipelinepunch_monster.png" 
-monster_image5 = Image.open(image5_path)
-monster_image5 = monster_image5.resize((IMAGE_RESIZE_WIDTH,IMAGE_RESIZE_HEIGHT), Image.LANCZOS)
-monster_photo5 = ImageTk.PhotoImage(monster_image5)
-
-image6_path= "riopunch_monster.png" 
-monster_image6 = Image.open(image6_path)
-monster_image6 = monster_image6.resize((IMAGE_RESIZE_WIDTH,IMAGE_RESIZE_HEIGHT), Image.LANCZOS)
-monster_photo6 = ImageTk.PhotoImage(monster_image6)
-
-image7_path= "UPK_monster.png" 
-monster_image7 = Image.open(image7_path)
-monster_image7 = monster_image7.resize((IMAGE_RESIZE_WIDTH,IMAGE_RESIZE_HEIGHT), Image.LANCZOS)
-monster_photo7 = ImageTk.PhotoImage(monster_image7)
 
 button_cardslot_1 = Button(frame_mainpage_bg, image = monster_photo1, height = CARD_HEIGHT, width = CARD_WIDTH, command= id_1)
 button_cardslot_1.place(y = TOP_ROW_BUTTONS_YAXIS, x = 100)
@@ -436,21 +597,18 @@ button_cardslot_7.place(y = BOTTOM_ROW_BUTTONS_YAXIS, x = 240)
 button_cardslot_7.image = monster_photo7
 
 button_cardslot_8 = Button(frame_mainpage_bg, bg=DARK_TEAL, height = CARD_HEIGHT, width = CARD_WIDTH, command= id_8)
-button_cardslot_8.place(y = BOTTOM_ROW_BUTTONS_YAXIS, x = 380)
 
 button_cardslot_9 = Button(frame_mainpage_bg, bg=DARK_TEAL, height = CARD_HEIGHT, width = CARD_WIDTH, command= id_9)
-button_cardslot_9.place(y = BOTTOM_ROW_BUTTONS_YAXIS, x = 520)
 
 button_cardslot_10 = Button(frame_mainpage_bg, bg=DARK_TEAL, height = CARD_HEIGHT, width = CARD_WIDTH, command= id_10)
-button_cardslot_10.place(y = BOTTOM_ROW_BUTTONS_YAXIS, x = 660)
 
 frame_card_preview = Frame(root, bg=DARK_TEAL)
 
-image_placeholder = "placeholder.png"
+image_placeholder = "PLACEHOLDER.png"
 image_monster = Image.open(image_placeholder)
-image_monster = image_monster.resize((300,360), Image.LANCZOS)
+image_monster = image_monster.resize((PREVIEW_RESIZE_WIDTH,PREVIEW_RESIZE_HEIGHT), Image.LANCZOS)
 image_monster = ImageTk.PhotoImage(image_monster)
-label_preview_image = Label(frame_card_preview, image=image_monster)
+label_preview_image = Label(frame_card_preview, image=image_monster, width=320, height=360)
 label_preview_image.place(y = 15, x = 15)
 
 label_strength = Label(frame_card_preview, text="Srength:", fg = DARK_RED, font = (FONT_TYPE, STATS_FONT_SIZE), bg=LIGHT_TEAL )
