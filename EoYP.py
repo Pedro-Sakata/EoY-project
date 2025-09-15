@@ -2,6 +2,7 @@
 from tkinter import *
 from tkinter import ttk 
 from PIL import Image, ImageTk
+from tkinter import messagebox
 
 #constants 
 MONS_MAX = 10
@@ -115,45 +116,118 @@ def open_images():
     option4 = option4.resize((145,213), Image.LANCZOS)
     monster_option4 = ImageTk.PhotoImage(option4)
 
+def button_resize():
+
+    global monster_option1
+    global monster_option2
+    global monster_option3
+    global monster_option4
+    
+    global option1
+    global option2
+    global option3
+    global option4
+
+    option1 = option1.resize((IMAGE_RESIZE_WIDTH,IMAGE_RESIZE_HEIGHT), Image.LANCZOS)
+    monster_option1= ImageTk.PhotoImage(option1)
+
+    option2 = option2.resize((IMAGE_RESIZE_WIDTH,IMAGE_RESIZE_HEIGHT), Image.LANCZOS)
+    monster_option2= ImageTk.PhotoImage(option2)
+
+    option3 = option3.resize((IMAGE_RESIZE_WIDTH,IMAGE_RESIZE_HEIGHT), Image.LANCZOS)
+    monster_option3= ImageTk.PhotoImage(option3)
+
+    option4 = option4.resize((IMAGE_RESIZE_WIDTH,IMAGE_RESIZE_HEIGHT), Image.LANCZOS)
+    monster_option4= ImageTk.PhotoImage(option4)
+
+def output():
+    print ("\nMonster Catalogue")
+    print (monsters)
+
 def id_1():
     global card_id
+    global monster_image1
+    global monster_photo1
+
     card_id = 1
+    monster_image1 = monster_image1.resize((PREVIEW_RESIZE_WIDTH,PREVIEW_RESIZE_HEIGHT), Image.LANCZOS)
+    monster_photo1 = ImageTk.PhotoImage(monster_image1)
+    card_preview()
     
 def id_2():
     global card_id
+    global monster_image2
+    global monster_photo2
+
     card_id = 2
+    monster_image2 = monster_image2.resize((PREVIEW_RESIZE_WIDTH,PREVIEW_RESIZE_HEIGHT), Image.LANCZOS)
+    monster_photo2 = ImageTk.PhotoImage(monster_image2)
+    card_preview()
 
 def id_3():
     global card_id
+    global monster_image3
+    global monster_photo3
+
     card_id = 3
+    monster_image3 = monster_image3.resize((PREVIEW_RESIZE_WIDTH,PREVIEW_RESIZE_HEIGHT), Image.LANCZOS)
+    monster_photo3 = ImageTk.PhotoImage(monster_image3)
+    card_preview()
 
 def id_4():
     global card_id
+    global monster_image4
+    global monster_photo4
+
     card_id = 4
+    monster_image4 = monster_image4.resize((PREVIEW_RESIZE_WIDTH,PREVIEW_RESIZE_HEIGHT), Image.LANCZOS)
+    monster_photo4 = ImageTk.PhotoImage(monster_image4)
+    card_preview()
 
 def id_5():
     global card_id
+    global monster_image5
+    global monster_photo5
+
     card_id = 5
+    monster_image5 = monster_image5.resize((PREVIEW_RESIZE_WIDTH,PREVIEW_RESIZE_HEIGHT), Image.LANCZOS)
+    monster_photo5 = ImageTk.PhotoImage(monster_image5)
+    card_preview()
 
 def id_6():
     global card_id
+    global monster_image6
+    global monster_photo6
+
     card_id = 6
+    monster_image6 = monster_image6.resize((PREVIEW_RESIZE_WIDTH,PREVIEW_RESIZE_HEIGHT), Image.LANCZOS)
+    monster_photo6 = ImageTk.PhotoImage(monster_image6)
+    card_preview()
 
 def id_7():
     global card_id
+    global monster_image7
+    global monster_photo7
+
     card_id = 7
+    monster_image7 = monster_image7.resize((PREVIEW_RESIZE_WIDTH,PREVIEW_RESIZE_HEIGHT), Image.LANCZOS)
+    monster_photo7 = ImageTk.PhotoImage(monster_image7)
+    card_preview()
 
 def id_8():
     global card_id
     card_id = 8
+    card_preview()
 
 def id_9():
     global card_id
     card_id = 9
+    card_preview()
 
 def id_10():
     global card_id
     card_id = 10
+    card_preview()
 
 def return_function():
     frame_card_preview.pack_forget()
@@ -174,113 +248,19 @@ def card_preview():
     global label_cunning_stat
     global label_total_stat
 
-    global monster_image1
-    global monster_image2
-    global monster_image3
-    global monster_image4
-    global monster_image5
-    global monster_image6
-    global monster_image7
+    strength = monsters[card_id]["strength"]
+    speed = monsters[card_id] ["speed"]
+    stealth = monsters[card_id] ["stealth"]
+    cunning = monsters[card_id] ["cunning"]
+    total = monsters[card_id] ["total_score"]
+    monster_image = monsters[card_id]["image_id"]
 
-    global monster_photo1
-    global monster_photo2
-    global monster_photo3
-    global monster_photo4
-    global monster_photo5
-    global monster_photo6
-    global monster_photo7
+    delete_button = Button(frame_card_preview , text = "Delete", fg = DARK_RED, font = (FONT_TYPE, 16), bg = RED, command=lambda: remove_card(monsters, card_id))
 
-    monster_image1 = monster_image1.resize((PREVIEW_RESIZE_WIDTH,PREVIEW_RESIZE_HEIGHT), Image.LANCZOS)
-    monster_photo1 = ImageTk.PhotoImage(monster_image1)
-
-    monster_image2 = monster_image2.resize((PREVIEW_RESIZE_WIDTH,PREVIEW_RESIZE_HEIGHT), Image.LANCZOS)
-    monster_photo2 = ImageTk.PhotoImage(monster_image2)
-
-    monster_image3 = monster_image3.resize((PREVIEW_RESIZE_WIDTH,PREVIEW_RESIZE_HEIGHT), Image.LANCZOS)
-    monster_photo3 = ImageTk.PhotoImage(monster_image3)
-
-    monster_image4 = monster_image4.resize((PREVIEW_RESIZE_WIDTH,PREVIEW_RESIZE_HEIGHT), Image.LANCZOS)
-    monster_photo4 = ImageTk.PhotoImage(monster_image4)
-
-    monster_image5 = monster_image5.resize((PREVIEW_RESIZE_WIDTH,PREVIEW_RESIZE_HEIGHT), Image.LANCZOS)
-    monster_photo5 = ImageTk.PhotoImage(monster_image5)
-
-    monster_image6 = monster_image6.resize((PREVIEW_RESIZE_WIDTH,PREVIEW_RESIZE_HEIGHT), Image.LANCZOS)
-    monster_photo6 = ImageTk.PhotoImage(monster_image6)
-
-    monster_image7 = monster_image7.resize((PREVIEW_RESIZE_WIDTH,PREVIEW_RESIZE_HEIGHT), Image.LANCZOS)
-    monster_photo7 = ImageTk.PhotoImage(monster_image7)
-
-    if card_id == 1:
-        strength = monsters["monster1"]["strength"]
-        speed = monsters["monster1"] ["speed"]
-        stealth = monsters["monster1"] ["stealth"]
-        cunning = monsters["monster1"] ["cunning"]
-        total = monsters["monster1"] ["total_score"]
-        monster_image = monsters["monster1"]["image_id"]
-    if card_id == 2:
-        strength = monsters["monster2"]["strength"]
-        speed = monsters["monster2"] ["speed"]
-        stealth = monsters["monster2"] ["stealth"]
-        cunning = monsters["monster2"] ["cunning"]
-        total = monsters["monster2"] ["total_score"]
-        monster_image = monsters["monster2"]["image_id"]   
-    if card_id == 3:
-        strength = monsters["monster3"]["strength"]
-        speed = monsters["monster3"] ["speed"]
-        stealth = monsters["monster3"] ["stealth"]
-        cunning = monsters["monster3"] ["cunning"]
-        total = monsters["monster3"] ["total_score"] 
-        monster_image = monsters["monster3"]["image_id"]
-    if card_id == 4:
-        strength = monsters["monster4"]["strength"]
-        speed = monsters["monster4"] ["speed"]
-        stealth = monsters["monster4"] ["stealth"]
-        cunning = monsters["monster4"] ["cunning"]
-        total = monsters["monster4"] ["total_score"]    
-        monster_image = monsters["monster4"]["image_id"]     
-    if card_id == 5:
-        strength = monsters["monster5"]["strength"]
-        speed = monsters["monster5"] ["speed"]
-        stealth = monsters["monster5"] ["stealth"]
-        cunning = monsters["monster5"] ["cunning"]
-        total = monsters["monster5"] ["total_score"]
-        monster_image = monsters["monster5"]["image_id"]
-    if card_id == 6:
-        strength = monsters["monster6"]["strength"]
-        speed = monsters["monster6"] ["speed"]
-        stealth = monsters["monster6"] ["stealth"]
-        cunning = monsters["monster6"] ["cunning"]
-        total = monsters["monster6"] ["total_score"]  
-        monster_image = monsters["monster6"]["image_id"]      
-    if card_id == 7:
-        strength = monsters["monster7"]["strength"]
-        speed = monsters["monster7"] ["speed"]
-        stealth = monsters["monster7"] ["stealth"]
-        cunning = monsters["monster7"] ["cunning"]
-        total = monsters["monster7"] ["total_score"]   
-        monster_image = monsters["monster7"]["image_id"]    
-    if card_id == 8:
-        strength = monsters["monster8"]["strength"]
-        speed = monsters["monster8"] ["speed"]
-        stealth = monsters["monster8"] ["stealth"]
-        cunning = monsters["monster8"] ["cunning"]
-        total = monsters["monster8"] ["total_score"] 
-        monster_image = monsters["monster8"]["image_id"] 
-    if card_id == 9:
-        strength = monsters["monster9"]["strength"]
-        speed = monsters["monster9"] ["speed"]
-        stealth = monsters["monster9"] ["stealth"]
-        cunning = monsters["monster9"] ["cunning"]
-        total = monsters["monster9"] ["total_score"]  
-        monster_image = monsters["monster9"]["image_id"] 
-    if card_id == 10:
-        strength = monsters["monster10"]["strength"]
-        speed = monsters["monster10"] ["speed"]
-        stealth = monsters["monster10"] ["stealth"]
-        cunning = monsters["monster10"] ["cunning"]
-        total = monsters["monster10"] ["total_score"]  
-        monster_image = monsters["monster10"]["image_id"]
+    if (card_id >= 8):
+        delete_button.place(y = 600, x = 200)
+    elif (card_id <= 7):
+        delete_button.pack_forget()
 
     strength_stat.config(text= strength)
     speed_stat.config(text= speed)
@@ -291,10 +271,41 @@ def card_preview():
     label_preview_image.config(image= monster_image)
 
     frame_mainpage_bg.pack_forget()
+    frame_card_preview.pack(fill=BOTH, expand = TRUE)
     root.geometry("450x650")
 
-    frame_card_preview.pack(fill=BOTH, expand = TRUE)
+def remove_card(d, card_id):
+    global button_cardslot_8, button_cardslot_9, button_cardslot_10
+    global is_slot_8_free, is_slot_9_free, is_slot_10_free
+    global cards_added
     
+    cards_added = cards_added - 1
+
+    if (card_id == 8):
+        button_cardslot_8.destroy()
+        is_slot_8_free = TRUE
+    elif(card_id == 9):
+        button_cardslot_9.destroy()
+        is_slot_9_free = TRUE
+    elif(card_id == 10):
+        button_cardslot_10.destroy()
+        is_slot_10_free = TRUE
+
+    keys_to_remove_in_current_level = []
+
+    for key, value in d.items():
+        if key == card_id:
+            keys_to_remove_in_current_level.append(key)
+        elif isinstance(value, dict):
+            remove_card(value, card_id)
+        elif isinstance(value, list):
+            for item in value:
+                if isinstance(item, dict):
+                    remove_card(item, card_id)
+
+    for key in keys_to_remove_in_current_level:
+        del d[key]
+
 def chose_card1():
     global chosen_card
     global option1
@@ -335,124 +346,116 @@ def enforce_limit(*args):
 
 def adding_page():
 
-    global slider_strength
-    global slider_speed
-    global slider_stealth
-    global slider_cunning
-    global label_strength_stat
-    global label_speed_stat
-    global label_sneak_stat
-    global label_cunning_stat
-    global label_total_stat
-
-    global monster_option1
-    global monster_option2
-    global monster_option3
-    global monster_option4
-    
-    global option1
-    global option2
-    global option3
-    global option4
-
+    global slider_strength, slider_speed, slider_stealth, slider_cunning
+    global label_strength_stat, label_speed_stat, label_sneak_stat, label_cunning_stat, label_total_stat
+    global monster_option1, monster_option2, monster_option3, monster_option4
+    global option1, option2, option3, option4
     global entry_name
-
     global entry_text
-
-    option1 = option1.resize((145,213), Image.LANCZOS)
-    monster_option1 = ImageTk.PhotoImage(option1)
-
-    option2 = option2.resize((145,213), Image.LANCZOS)
-    monster_option2 = ImageTk.PhotoImage(option2)
-
-    option3 = option3.resize((145,213), Image.LANCZOS)
-    monster_option3 = ImageTk.PhotoImage(option3)
-
-    option4 = option4.resize((145,213), Image.LANCZOS)
-    monster_option4 = ImageTk.PhotoImage(option4)
-
-    frame_teal_bar1 = Frame(frame_adding_page, bg = LIGHT_TEAL, width= TEAL_BAR_WIDTH, height= 70)
-    frame_teal_bar1.place(y = 10, x = 20)
-
-    label_card_creation = Label(frame_teal_bar1, text="Card Cration", fg = DARK_RED, font = (FONT_TYPE, 35), background= LIGHT_TEAL)
-    label_card_creation.place(y = 7, x = 10)
-
-    button_add_exit = Button(frame_teal_bar1, text = "Exit", fg = DARK_RED, font = (FONT_TYPE, 18), bg=RED, command= exit)
-    button_add_exit.place(y = 13, x = 300)
-
-    frame_teal_bar2 = Frame(frame_adding_page, bg = LIGHT_TEAL, width= TEAL_BAR_WIDTH, height= TEAL_BAR_HEIHGT)
-    frame_teal_bar2.place(y = 120, x = 20)
-
-    label_strength = Label(frame_teal_bar2, text="Strength: ", fg = DARK_RED, font = (FONT_TYPE, 25), background= LIGHT_TEAL)
-    label_strength.place(y = 8, x = 10)
-
-    slider_strength = Scale(frame_teal_bar2, from_=1, to=25, orient=HORIZONTAL, bg=LIGHT_TEAL, troughcolor=DARK_TEAL, bd= 0, highlightthickness=0, fg = DARK_RED)
-    slider_strength.place(y=8, x = SLIDER_XAXIS, width= SLIDER_WIDTH, height= SLIDER_HEIHGT)
-
-    frame_teal_bar3 = Frame(frame_adding_page, bg = LIGHT_TEAL, width= TEAL_BAR_WIDTH, height= TEAL_BAR_HEIHGT)
-    frame_teal_bar3.place(y = 230, x = 20)
-
-    label_speed = Label(frame_teal_bar3, text="Speed: ", fg = DARK_RED, font = (FONT_TYPE, 25), background= LIGHT_TEAL)
-    label_speed.place(y = 8, x = 10)
-
-    slider_speed = Scale(frame_teal_bar3, from_=1, to=25, orient=HORIZONTAL, bg=LIGHT_TEAL, troughcolor=DARK_TEAL, bd= 0, highlightthickness=0, fg = DARK_RED)
-    slider_speed.place(y=8, x = SLIDER_XAXIS, width= SLIDER_WIDTH, height= SLIDER_HEIHGT)
-
-    frame_teal_bar4 = Frame(frame_adding_page, bg = LIGHT_TEAL, width= TEAL_BAR_WIDTH, height= TEAL_BAR_HEIHGT)
-    frame_teal_bar4.place(y = 340, x = 20)
-
-    label_Stealth = Label(frame_teal_bar4, text="Stealth:", fg = DARK_RED, font = (FONT_TYPE, 25), background= LIGHT_TEAL)
-    label_Stealth.place(y = 8, x = 10)
-
-    slider_stealth = Scale(frame_teal_bar4, from_=1, to=25, orient=HORIZONTAL, bg=LIGHT_TEAL, troughcolor=DARK_TEAL, bd= 0, highlightthickness=0, fg = DARK_RED)
-    slider_stealth.place(y=8, x = SLIDER_XAXIS, width= SLIDER_WIDTH, height= SLIDER_HEIHGT)
-
-    frame_teal_bar5 = Frame(frame_adding_page, bg = LIGHT_TEAL, width= TEAL_BAR_WIDTH, height= TEAL_BAR_HEIHGT)
-    frame_teal_bar5.place(y = 450, x = 20)
-
-    label_cunning = Label(frame_teal_bar5, text="Cunning:", fg = DARK_RED, font = (FONT_TYPE, 25), background= LIGHT_TEAL)
-    label_cunning.place(y = 8, x = 10)
-
-    slider_cunning = Scale(frame_teal_bar5, from_=1, to=25, orient=HORIZONTAL, bg=LIGHT_TEAL, troughcolor=DARK_TEAL, bd= 0, highlightthickness=0, fg = DARK_RED)
-    slider_cunning.place(y=8, x = SLIDER_XAXIS, width= SLIDER_WIDTH, height= SLIDER_HEIHGT)
-
-    entry_text = StringVar()
-    entry_text.trace("w", enforce_limit)
-    entry_name = Entry(frame_adding_page, textvariable=entry_text, background= DARK_TEAL, fg = "white", font = (FONT_TYPE, 10), bd=3)
-    entry_name.place(y = 20, x = 450, width= 350, height= 30)  
-
-    button_card_option1 = Button(frame_adding_page, image= monster_option1, width= 145, height= 213, command=chose_card1)
-    button_card_option1.place(y = 65, x = 450)
-    button_card_option1.image = monster_option1
-
-    button_card_option2 = Button(frame_adding_page, image= monster_option2, width= 145, height= 213, command=chose_card2)
-    button_card_option2.place(y = 65, x = 650)
-    button_card_option2.image = monster_option2
-
-    button_card_option3 = Button(frame_adding_page, image= monster_option3, width= 145, height= 213, command=chose_card3)
-    button_card_option3.place(y = 300, x = 450)
-    button_card_option3.image = monster_option3
+    global cards_added
     
-    button_card_option4 = Button(frame_adding_page, image= monster_option4, width= 145, height= 213, command=chose_card4)
-    button_card_option4.place(y = 300, x = 650)
-    button_card_option4.image = monster_option4
 
-    button_confirm = Button(frame_adding_page, text= "Confirm", fg = DARK_RED, bg=LIGHT_TEAL, font = (FONT_TYPE, 13), command= card_confirmation)
-    button_confirm.place(y = 530, x = 20)
+    if (cards_added == 3):
+        messagebox.showerror("Maximum card limit reached", "You have reached the maximum card limit of 10")
+        return_function()
 
-    button_cancel = Button(frame_adding_page, text="Cancel", fg = DARK_RED, font = (FONT_TYPE, 13), bg=LIGHT_TEAL, command= return_function)
-    button_cancel.place(y = 530, x = 100)
+    else:
+        option1 = option1.resize((145,213), Image.LANCZOS)
+        monster_option1 = ImageTk.PhotoImage(option1)
 
-    frame_mainpage_bg.pack_forget()
-    frame_card_confirmation.pack_forget()
-    frame_adding_page.pack(fill = BOTH, expand= TRUE)
-    root.geometry("840x570")
+        option2 = option2.resize((145,213), Image.LANCZOS)
+        monster_option2 = ImageTk.PhotoImage(option2)
+
+        option3 = option3.resize((145,213), Image.LANCZOS)
+        monster_option3 = ImageTk.PhotoImage(option3)
+
+        option4 = option4.resize((145,213), Image.LANCZOS)
+        monster_option4 = ImageTk.PhotoImage(option4)
+
+        frame_teal_bar1 = Frame(frame_adding_page, bg = LIGHT_TEAL, width= TEAL_BAR_WIDTH, height= 70)
+        frame_teal_bar1.place(y = 10, x = 20)
+
+        label_card_creation = Label(frame_teal_bar1, text="Card Cration", fg = DARK_RED, font = (FONT_TYPE, 35), background= LIGHT_TEAL)
+        label_card_creation.place(y = 7, x = 10)
+
+        button_add_exit = Button(frame_teal_bar1, text = "Exit", fg = DARK_RED, font = (FONT_TYPE, 18), bg=RED, command= exit)
+        button_add_exit.place(y = 13, x = 300)
+
+        frame_teal_bar2 = Frame(frame_adding_page, bg = LIGHT_TEAL, width= TEAL_BAR_WIDTH, height= TEAL_BAR_HEIHGT)
+        frame_teal_bar2.place(y = 120, x = 20)
+
+        label_strength = Label(frame_teal_bar2, text="Strength: ", fg = DARK_RED, font = (FONT_TYPE, 25), background= LIGHT_TEAL)
+        label_strength.place(y = 8, x = 10)
+
+        slider_strength = Scale(frame_teal_bar2, from_=1, to=25, orient=HORIZONTAL, bg=LIGHT_TEAL, troughcolor=DARK_TEAL, bd= 0, highlightthickness=0, fg = DARK_RED)
+        slider_strength.place(y=8, x = SLIDER_XAXIS, width= SLIDER_WIDTH, height= SLIDER_HEIHGT)
+
+        frame_teal_bar3 = Frame(frame_adding_page, bg = LIGHT_TEAL, width= TEAL_BAR_WIDTH, height= TEAL_BAR_HEIHGT)
+        frame_teal_bar3.place(y = 230, x = 20)
+
+        label_speed = Label(frame_teal_bar3, text="Speed: ", fg = DARK_RED, font = (FONT_TYPE, 25), background= LIGHT_TEAL)
+        label_speed.place(y = 8, x = 10)
+
+        slider_speed = Scale(frame_teal_bar3, from_=1, to=25, orient=HORIZONTAL, bg=LIGHT_TEAL, troughcolor=DARK_TEAL, bd= 0, highlightthickness=0, fg = DARK_RED)
+        slider_speed.place(y=8, x = SLIDER_XAXIS, width= SLIDER_WIDTH, height= SLIDER_HEIHGT)
+
+        frame_teal_bar4 = Frame(frame_adding_page, bg = LIGHT_TEAL, width= TEAL_BAR_WIDTH, height= TEAL_BAR_HEIHGT)
+        frame_teal_bar4.place(y = 340, x = 20)
+
+        label_Stealth = Label(frame_teal_bar4, text="Stealth:", fg = DARK_RED, font = (FONT_TYPE, 25), background= LIGHT_TEAL)
+        label_Stealth.place(y = 8, x = 10)
+
+        slider_stealth = Scale(frame_teal_bar4, from_=1, to=25, orient=HORIZONTAL, bg=LIGHT_TEAL, troughcolor=DARK_TEAL, bd= 0, highlightthickness=0, fg = DARK_RED)
+        slider_stealth.place(y=8, x = SLIDER_XAXIS, width= SLIDER_WIDTH, height= SLIDER_HEIHGT)
+
+        frame_teal_bar5 = Frame(frame_adding_page, bg = LIGHT_TEAL, width= TEAL_BAR_WIDTH, height= TEAL_BAR_HEIHGT)
+        frame_teal_bar5.place(y = 450, x = 20)
+
+        label_cunning = Label(frame_teal_bar5, text="Cunning:", fg = DARK_RED, font = (FONT_TYPE, 25), background= LIGHT_TEAL)
+        label_cunning.place(y = 8, x = 10)
+
+        slider_cunning = Scale(frame_teal_bar5, from_=1, to=25, orient=HORIZONTAL, bg=LIGHT_TEAL, troughcolor=DARK_TEAL, bd= 0, highlightthickness=0, fg = DARK_RED)
+        slider_cunning.place(y=8, x = SLIDER_XAXIS, width= SLIDER_WIDTH, height= SLIDER_HEIHGT)
+
+        entry_text = StringVar()
+        entry_text.trace("w", enforce_limit)
+        entry_name = Entry(frame_adding_page, textvariable=entry_text, background= DARK_TEAL, fg = "white", font = (FONT_TYPE, 10), bd=3)
+        entry_name.place(y = 20, x = 450, width= 350, height= 30)  
+
+        button_card_option1 = Button(frame_adding_page, image= monster_option1, width= 145, height= 213, command=chose_card1)
+        button_card_option1.place(y = 65, x = 450)
+        button_card_option1.image = monster_option1
+
+        button_card_option2 = Button(frame_adding_page, image= monster_option2, width= 145, height= 213, command=chose_card2)
+        button_card_option2.place(y = 65, x = 650)
+        button_card_option2.image = monster_option2
+
+        button_card_option3 = Button(frame_adding_page, image= monster_option3, width= 145, height= 213, command=chose_card3)
+        button_card_option3.place(y = 300, x = 450)
+        button_card_option3.image = monster_option3
+        
+        button_card_option4 = Button(frame_adding_page, image= monster_option4, width= 145, height= 213, command=chose_card4)
+        button_card_option4.place(y = 300, x = 650)
+        button_card_option4.image = monster_option4
+
+        button_confirm = Button(frame_adding_page, text= "Confirm", fg = DARK_RED, bg=LIGHT_TEAL, font = (FONT_TYPE, 13), command= card_confirmation)
+        button_confirm.place(y = 530, x = 20)
+
+        button_cancel = Button(frame_adding_page, text="Cancel", fg = DARK_RED, font = (FONT_TYPE, 13), bg=LIGHT_TEAL, command= return_function)
+        button_cancel.place(y = 530, x = 100)
+
+        frame_mainpage_bg.pack_forget()
+        frame_card_confirmation.pack_forget()
+        frame_adding_page.pack(fill = BOTH, expand= TRUE)
+        root.geometry("840x570")
 
 def card_confirmation(): 
 
     global entry_name, label_monster_name
 
     global new_strength, new_speed, new_stealth, new_cunning, new_total
+
+    global cards_added
 
     name = entry_name.get()
 
@@ -479,80 +482,71 @@ def card_confirmation():
 
 def save_card():
 
-    global monster_option1
-    global monster_option2
-    global monster_option3
-    global monster_option4
-    
-    global option1
-    global option2
-    global option3
-    global option4
-    
+    global monster_option1, monster_option2, monster_option3, monster_option4
+    global option1, option2, option3, option4
     global new_strength, new_speed, new_stealth, new_cunning, new_total
     global cards_added
+    global button_cardslot_8, button_cardslot_9, button_cardslot_10
+    global is_slot_8_free, is_slot_9_free, is_slot_10_free
 
     cards_added += 1
 
-    option1 = option1.resize((IMAGE_RESIZE_WIDTH,IMAGE_RESIZE_HEIGHT), Image.LANCZOS)
-    monster_option1= ImageTk.PhotoImage(option1)
+    button_resize()
 
-    option2 = option2.resize((IMAGE_RESIZE_WIDTH,IMAGE_RESIZE_HEIGHT), Image.LANCZOS)
-    monster_option2= ImageTk.PhotoImage(option2)
-
-    option3 = option3.resize((IMAGE_RESIZE_WIDTH,IMAGE_RESIZE_HEIGHT), Image.LANCZOS)
-    monster_option3= ImageTk.PhotoImage(option3)
-
-    option4 = option4.resize((IMAGE_RESIZE_WIDTH,IMAGE_RESIZE_HEIGHT), Image.LANCZOS)
-    monster_option4= ImageTk.PhotoImage(option4)
-
-    if (cards_added == 1):
-        monsters["monster8"] = { 
+    if (is_slot_8_free == TRUE):
+        monsters[8] = { 
         "monster_name": name, 
         "image_id": chosen_card,
         "strength": new_strength, 
         "speed": new_speed, 
-        "stealth": new_cunning, 
-        "cunning": new_total,
-        "total_score": new_stealth
+        "stealth": new_stealth, 
+        "cunning": new_cunning,
+        "total_score": new_total
         }
         
         button_cardslot_8 = Button(frame_mainpage_bg, image = chosen_card, bg=DARK_TEAL, height = CARD_HEIGHT, width = CARD_WIDTH, command= id_8)
         button_cardslot_8.place(y = BOTTOM_ROW_BUTTONS_YAXIS, x = 380)
         button_cardslot_8.image = chosen_card
+        is_slot_8_free = FALSE
 
-        return_function()
-
-    if (cards_added == 2):
-        monsters["monster9"] = { 
+    elif(is_slot_9_free == TRUE):
+        monsters[9] = { 
         "monster_name": name, 
         "image_id": chosen_card,
         "strength": new_strength, 
         "speed": new_speed, 
-        "stealth": new_cunning, 
-        "cunning": new_total,
-        "total_score": new_stealth
+        "stealth": new_stealth, 
+        "cunning": new_cunning,
+        "total_score": new_total
         }
         button_cardslot_9 = Button(frame_mainpage_bg, image = chosen_card, bg=DARK_TEAL, height = CARD_HEIGHT, width = CARD_WIDTH, command= id_9)
         button_cardslot_9.place(y = BOTTOM_ROW_BUTTONS_YAXIS, x = 520)
         button_cardslot_9.image = chosen_card
-        return_function()
+        is_slot_9_free = FALSE
 
-    if (cards_added == 3):
-        monsters["monster10"] = { 
+    elif(is_slot_10_free == TRUE):
+        monsters[10] = { 
         "monster_name": name, 
         "image_id": chosen_card,
         "strength": new_strength, 
         "speed": new_speed, 
-        "stealth": new_cunning, 
-        "cunning": new_total,
-        "total_score": new_stealth
+        "stealth": new_stealth, 
+        "cunning": new_cunning,
+        "total_score": new_total
         }
         button_cardslot_10 = Button(frame_mainpage_bg, image = chosen_card, bg=DARK_TEAL, height = CARD_HEIGHT, width = CARD_WIDTH, command= id_10)
         button_cardslot_10.place(y = BOTTOM_ROW_BUTTONS_YAXIS, x = 660)
         button_cardslot_10.image = chosen_card
-        return_function()
+        is_slot_8_free = FALSE
 
+    return_function()
+
+    with open("monster.txt", "w") as file:
+        file.write(str(monsters))
+
+is_slot_8_free = TRUE
+is_slot_9_free = TRUE
+is_slot_10_free = TRUE
 
 card_id = 0
 
@@ -563,7 +557,7 @@ root.geometry("840x570")
 open_images()
 
 monsters= {
-    "monster1" : {
+    1 : {
         "monster_name": "Vexscream", 
         "image_id": monster_photo1,
         "strength": 1, 
@@ -572,7 +566,7 @@ monsters= {
         "cunning": 19,
         "total_score": 47
     },
-    "monster2" : {
+    2 : {
         "monster_name": "Dawnmirage", 
         "image_id": monster_photo2,
         "strength": 5, 
@@ -581,7 +575,7 @@ monsters= {
         "cunning": 22,
         "total_score": 60
     },
-       "monster3" : {
+    3 : {
         "monster_name": "Blazegolem", 
         "image_id": monster_photo3,
         "strength": 15, 
@@ -590,7 +584,7 @@ monsters= {
         "cunning": 6,
         "total_score": 64
     }, 
-        "monster4" : {
+    4 : {
         "monster_name": "Moldvine", 
         "image_id": monster_photo4,
         "strength": 21, 
@@ -599,7 +593,7 @@ monsters= {
         "cunning": 5,
         "total_score": 58
     }, 
-        "monster5" : {
+    5 : {
         "monster_name": "Vertexwing", 
         "image_id": monster_photo5,
         "strength": 19, 
@@ -608,7 +602,7 @@ monsters= {
         "cunning": 2,
         "total_score": 53
     }, 
-        "monster6" : {
+    6 : {
         "monster_name": "Froststep", 
         "image_id": monster_photo6,
         "strength": 14, 
@@ -617,7 +611,7 @@ monsters= {
         "cunning": 4,
         "total_score": 49
     }, 
-        "monster7" : {
+    7 : {
         "monster_name": "Wispghoul", 
         "image_id": monster_photo7,
         "strength": 17, 
@@ -627,6 +621,8 @@ monsters= {
         "total_score": 41
     }
 }
+
+
 
 frame_mainpage_bg = Frame(root, bg=DARK_TEAL)
 frame_mainpage_bg.pack(fill=BOTH, expand=TRUE)
@@ -649,7 +645,7 @@ button_edit.place(y = 85, x = 270)
 button_sort = Button(frame_graytbox, text="Sort", fg = DARK_RED, font = (FONT_TYPE, 18), bg=LIGHT_TEAL)
 button_sort.place(y = 85, x = 420)
 
-button_print = Button(frame_graytbox, text="Print", fg = DARK_RED, font = (FONT_TYPE, 18), bg=LIGHT_TEAL, command= card_preview)
+button_print = Button(frame_graytbox, text="Print", fg = DARK_RED, font = (FONT_TYPE, 18), bg=LIGHT_TEAL, command = output)
 button_print.place(y = 85, x = 570)
 
 entry_searchbar = Entry(frame_graytbox, text="search", fg = DARK_RED, font = (FONT_TYPE, 10), bg=GRAY_COLOUR)
@@ -685,8 +681,6 @@ button_cardslot_6.image = monster_photo6
 button_cardslot_7 = Button(frame_mainpage_bg, image= monster_photo7, height = CARD_HEIGHT, width = CARD_WIDTH, command= id_7)
 button_cardslot_7.place(y = BOTTOM_ROW_BUTTONS_YAXIS, x = 240)
 button_cardslot_7.image = monster_photo7
-
-
 
 frame_card_preview = Frame(root, bg=DARK_TEAL)
 
