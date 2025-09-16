@@ -33,6 +33,74 @@ PREVIEW_RESIZE_WIDTH = 320
 PREVIEW_RESIZE_HEIGHT = 600
 MAX_LENGTH = 16
 
+monsters= {
+    1 : {
+        "monster_name": "Vexscream", 
+        "image_id": monster_photo1,
+        "strength": 1, 
+        "speed": 6, 
+        "stealth": 21, 
+        "cunning": 19,
+        "total_score": 47
+    },
+    2 : {
+        "monster_name": "Dawnmirage", 
+        "image_id": monster_photo2,
+        "strength": 5, 
+        "speed": 15, 
+        "stealth": 18, 
+        "cunning": 22,
+        "total_score": 60
+    },
+    3 : {
+        "monster_name": "Blazegolem", 
+        "image_id": monster_photo3,
+        "strength": 15, 
+        "speed": 20, 
+        "stealth": 23, 
+        "cunning": 6,
+        "total_score": 64
+    }, 
+    4 : {
+        "monster_name": "Moldvine", 
+        "image_id": monster_photo4,
+        "strength": 21, 
+        "speed": 18, 
+        "stealth": 14, 
+        "cunning": 5,
+        "total_score": 58
+    }, 
+    5 : {
+        "monster_name": "Vertexwing", 
+        "image_id": monster_photo5,
+        "strength": 19, 
+        "speed": 13, 
+        "stealth": 18, 
+        "cunning": 2,
+        "total_score": 53
+    }, 
+    6 : {
+        "monster_name": "Froststep", 
+        "image_id": monster_photo6,
+        "strength": 14, 
+        "speed": 14, 
+        "stealth": 17, 
+        "cunning": 4,
+        "total_score": 49
+    }, 
+    7 : {
+        "monster_name": "Wispghoul", 
+        "image_id": monster_photo7,
+        "strength": 17, 
+        "speed": 19, 
+        "stealth": 3, 
+        "cunning": 2,
+        "total_score": 41
+    }
+}
+
+
+
 def open_images():
 
     global monster_photo1
@@ -140,9 +208,16 @@ def button_resize():
     option4 = option4.resize((IMAGE_RESIZE_WIDTH,IMAGE_RESIZE_HEIGHT), Image.LANCZOS)
     monster_option4= ImageTk.PhotoImage(option4)
 
-def output():
-    print ("\nMonster Catalogue")
-    print (monsters)
+def save_to_file():
+    global monsters 
+    with open("monster.txt", "w") as file:
+        for each in monsters:
+            #line = str(each)+"\n"
+            print("working")
+            file.write("hello")
+
+
+
 
 def id_1():
     global card_id
@@ -541,8 +616,7 @@ def save_card():
 
     return_function()
 
-    with open("monster.txt", "w") as file:
-        file.write(str(monsters))
+    save_to_file()
 
 is_slot_8_free = TRUE
 is_slot_9_free = TRUE
@@ -554,73 +628,9 @@ root = Tk()
 root.title ("Monster Catalogue")
 root.geometry("840x570")
 
-open_images()
+save_to_file()
 
-monsters= {
-    1 : {
-        "monster_name": "Vexscream", 
-        "image_id": monster_photo1,
-        "strength": 1, 
-        "speed": 6, 
-        "stealth": 21, 
-        "cunning": 19,
-        "total_score": 47
-    },
-    2 : {
-        "monster_name": "Dawnmirage", 
-        "image_id": monster_photo2,
-        "strength": 5, 
-        "speed": 15, 
-        "stealth": 18, 
-        "cunning": 22,
-        "total_score": 60
-    },
-    3 : {
-        "monster_name": "Blazegolem", 
-        "image_id": monster_photo3,
-        "strength": 15, 
-        "speed": 20, 
-        "stealth": 23, 
-        "cunning": 6,
-        "total_score": 64
-    }, 
-    4 : {
-        "monster_name": "Moldvine", 
-        "image_id": monster_photo4,
-        "strength": 21, 
-        "speed": 18, 
-        "stealth": 14, 
-        "cunning": 5,
-        "total_score": 58
-    }, 
-    5 : {
-        "monster_name": "Vertexwing", 
-        "image_id": monster_photo5,
-        "strength": 19, 
-        "speed": 13, 
-        "stealth": 18, 
-        "cunning": 2,
-        "total_score": 53
-    }, 
-    6 : {
-        "monster_name": "Froststep", 
-        "image_id": monster_photo6,
-        "strength": 14, 
-        "speed": 14, 
-        "stealth": 17, 
-        "cunning": 4,
-        "total_score": 49
-    }, 
-    7 : {
-        "monster_name": "Wispghoul", 
-        "image_id": monster_photo7,
-        "strength": 17, 
-        "speed": 19, 
-        "stealth": 3, 
-        "cunning": 2,
-        "total_score": 41
-    }
-}
+open_images()
 
 
 
@@ -645,7 +655,7 @@ button_edit.place(y = 85, x = 270)
 button_sort = Button(frame_graytbox, text="Sort", fg = DARK_RED, font = (FONT_TYPE, 18), bg=LIGHT_TEAL)
 button_sort.place(y = 85, x = 420)
 
-button_print = Button(frame_graytbox, text="Print", fg = DARK_RED, font = (FONT_TYPE, 18), bg=LIGHT_TEAL, command = output)
+button_print = Button(frame_graytbox, text="Print", fg = DARK_RED, font = (FONT_TYPE, 18), bg=LIGHT_TEAL, command = save_to_file)
 button_print.place(y = 85, x = 570)
 
 entry_searchbar = Entry(frame_graytbox, text="search", fg = DARK_RED, font = (FONT_TYPE, 10), bg=GRAY_COLOUR)
