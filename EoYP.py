@@ -968,7 +968,7 @@ def aditing_confirmation():
     confirmation = messagebox.askquestion("confirm changes", "Do you want to confirm these changes?")
     if (confirmation == "yes"):
         messagebox.showinfo("Confirmed", "Your changes have been saved")
-        edit_save()
+        edit_save(d,)
     else:
         messagebox.showinfo("Canceled", "Your changes have been descarted")
         return_function()
