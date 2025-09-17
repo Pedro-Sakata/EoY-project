@@ -1,9 +1,13 @@
+#--------------------------imports---------------------------
+
 #imports the tkinter library
 from tkinter import *
 from tkinter import ttk 
 from PIL import Image, ImageTk
 from tkinter import messagebox
 import json
+
+#--------------------------Constants---------------------------
 
 #constants 
 MONS_MAX = 10
@@ -33,6 +37,8 @@ IMAGE_RESIZE_HEIGHT = 125
 PREVIEW_RESIZE_WIDTH = 320
 PREVIEW_RESIZE_HEIGHT = 600
 MAX_LENGTH = 16
+
+#--------------------------Function---------------------------
 
 #Function to open the images
 def open_images():
@@ -645,7 +651,6 @@ def card_preview():
     total = monsters[card_id] ["total_score"]
     monster_image = monsters[card_id]["image_id"]
 
-
     delete_button = Button(frame_card_preview , text = "Delete", fg = DARK_RED, font = (FONT_TYPE, 16), bg = RED, command=lambda: remove_card(monsters, card_id))
     delete_button.place(y = 600, x = 200)
 
@@ -663,29 +668,60 @@ def card_preview():
     frame_card_preview.pack(fill=BOTH, expand = True)
     root.geometry("450x650")
 
+#Function were monsters are removed
 def remove_card(d, card_id):
+
+    #Globals variables
     global button_cardslot_8, button_cardslot_9, button_cardslot_10
     global is_slot_8_free, is_slot_9_free, is_slot_10_free
     global cards_added
     
-    if (card_id < 8):
+    #checks if card id is smaller than 8
+    if (card_id < 8):  
+
+        #creates an error message 
         messagebox.showerror("Original seven monster selected", "You can not remove one of the original monsters")
+
+        #calls return function
         return_function()
+
+    #checks is card id is bigger than 7    
     elif (card_id > 7):
+
+        #incriments the cards added variable
         cards_added = cards_added - 1
 
+        #checks if card id is equal to 8
         if (card_id == 8):
+
+            #Removes the eighth button
             button_cardslot_8.destroy()
+
+            #sets the eight slot to True
             is_slot_8_free = True
+        
+        #checks if card id is equal to 9
         elif(card_id == 9):
+
+            #Removes the nineth button
             button_cardslot_9.destroy()
+
+            #sets the nineth slot to True
             is_slot_9_free = True
+
+        #checks if card id is equal to 10  
         elif(card_id == 10):
+
+            #Removes the tenth button
             button_cardslot_10.destroy()
+
+            #sets the tenth slot to True
             is_slot_10_free = True
 
+        #creates a dictionary for keys that will be removed
         keys_to_remove_in_current_level = []
 
+        #loops through d.items then checks if key is equal to card id and adds it to the dictionary
         for key, value in d.items():
             if key == card_id:
                 keys_to_remove_in_current_level.append(key)
@@ -696,100 +732,175 @@ def remove_card(d, card_id):
                     if isinstance(item, dict):
                         remove_card(item, card_id)
 
+        #loops through dictionary of keys to be removed
         for key in keys_to_remove_in_current_level:
+
+            #deletes keys
             del d[key]
 
+        #calls return function
         return_function()
 
+#Function were card 1 is picked
 def chose_card1():
+
+    #Globals variables 
     global chosen_card
     global option1
     global monster_option1
     global is_picked
+
+    #sets is picked to true
     is_picked = True
+
+    #resizes image option 1
     option1 = option1.resize((320,360), Image.LANCZOS)
     monster_option1 = ImageTk.PhotoImage(option1)
+
+    #sets chosen card to monster option 1
     chosen_card = monster_option1
 
+#Function were card 2 is picked
 def chose_card2():
+
+    #Globals variables 
     global chosen_card
     global option2
     global monster_option2
     global is_picked
+
+    #sets is picked to true
     is_picked = True
+
+    #resizes image option 2
     option2 = option2.resize((320,360), Image.LANCZOS)
     monster_option2 = ImageTk.PhotoImage(option2)
+
+    #sets chosen card to monster option 2
     chosen_card = monster_option2
 
+#Function were card 3 is picked
 def chose_card3():
+
+    #Globals variables 
     global chosen_card
     global option3
     global monster_option3
     global is_picked
+
+    #sets is picked to true
     is_picked = True
+
+    #resizes image option 3
     option3 = option3.resize((320,360), Image.LANCZOS)
     monster_option3 = ImageTk.PhotoImage(option3)
+
+    #sets chosen card to monster option 3
     chosen_card = monster_option3
 
+#Function were card 4 is picked
 def chose_card4():
+
+    #Globals variables 
     global chosen_card
     global option4
     global monster_option4
     global is_picked
+
+    #sets is picked to true
     is_picked = True
+
+    #resizes image option 4
     option4 = option4.resize((320,360), Image.LANCZOS)
     monster_option4 = ImageTk.PhotoImage(option4)
+
+    #sets chosen card to monster option 4
     chosen_card = monster_option4
 
+#Functon were serch bar character limit is enforced
 def enforce_limit(*args):
 
+    #makes s equal to what was writen on the entry
     s = entry_text.get()
+
+    #checks if s is bigger than max length constant
     if len(s) > MAX_LENGTH:
+
+        #sets the eatry to the max number of character
         entry_text.set(s[:MAX_LENGTH])
 
+#Function were new card is confirmed 
 def card_confirmation(): 
 
+    #lobals variables
     global entry_name, label_monster_name
     global new_strength, new_speed, new_stealth, new_cunning, new_total
     global cards_added
     global is_picked
     global name
 
+    #makes name equal to the entry input
     name = entry_name.get()
 
+    #closes the adding cards page
     frame_adding_page.pack_forget()
+
+    #opens the card confirmation page
     frame_card_confirmation.pack(fill = BOTH, expand = True)
+
+    #resizes the root geometry
     root.geometry("450x650")
 
+    #checks if name is empty 
     if (not name):
+
+        #makes error box
         messagebox.showerror("missing monster name", "No name was input. Please chosse a name with up to 16 characters")
+
+        #calls adding card function
         adding_page()
-        card_confirmation.pack_forget()
-    if (is_picked == False):
-        messagebox.showerror("missing monster image", "No image was selected. Please chosse an image")
-        adding_page()
+
+        #closes card confirmation page
         card_confirmation.pack_forget()
 
+    #checks if is picked is equal to False
+    if (is_picked == False):
+
+        #makes error box
+        messagebox.showerror("missing monster image", "No image was selected. Please chosse an image")
+
+        #calls adding card function
+        adding_page()
+
+        #closes card confirmation page
+        card_confirmation.pack_forget()
+
+    #makes new stats equal to input slider results
     new_strength = slider_strength.get()
     new_speed = slider_speed.get()
     new_stealth = slider_stealth.get()
     new_cunning = slider_cunning.get()
     new_total = new_strength + new_speed + new_stealth + new_cunning
 
+    #configs the stat lables to equal to the new stats
     label_strength_stat.config(text=new_strength)
     label_speed_stat.config(text = new_speed)
     label_cunning_stat.config(text = new_cunning)
     label_total_stat.config(text = new_total)
     label_sneak_stat.config(text = new_stealth)
 
+    #opens chosen image option as label
     label_confirm_image = Label(frame_card_confirmation, image=chosen_card, width=320, height=360)
     label_confirm_image.place(y = 15, x = 15)
 
+    #creates label with chosen name
     label_monster_name = Label(frame_card_confirmation, text = name, fg = DARK_RED, font = (FONT_TYPE, 14), bg=LIGHT_TEAL)
     label_monster_name.place(y = 385, x = 197)
 
+#Function were cards are added
 def adding_page():
 
+    #Globals variables
     global slider_strength, slider_speed, slider_stealth, slider_cunning
     global label_strength_stat, label_speed_stat, label_sneak_stat, label_cunning_stat, label_total_stat
     global monster_option1, monster_option2, monster_option3, monster_option4
@@ -798,183 +909,292 @@ def adding_page():
     global entry_text
     global cards_added
 
+    #checks if cards added is equal to 3
     if (cards_added == 3):
+
+        #makes error box
         messagebox.showerror("Maximum card limit reached", "You have reached the maximum card limit of 10")
+
+        #calls return funtion
         return_function()
 
     else:
+
+        #resizes image option 1
         option1 = option1.resize((145,213), Image.LANCZOS)
         monster_option1 = ImageTk.PhotoImage(option1)
 
+        #resizes image option 2
         option2 = option2.resize((145,213), Image.LANCZOS)
         monster_option2 = ImageTk.PhotoImage(option2)
 
+
+        #resizes image option 3
         option3 = option3.resize((145,213), Image.LANCZOS)
         monster_option3 = ImageTk.PhotoImage(option3)
 
+        #resizes image option 4
         option4 = option4.resize((145,213), Image.LANCZOS)
         monster_option4 = ImageTk.PhotoImage(option4)
 
+        #creates and places frame
         frame_teal_bar1 = Frame(frame_adding_page, bg = LIGHT_TEAL, width= TEAL_BAR_WIDTH, height= 70)
         frame_teal_bar1.place(y = 10, x = 20)
 
+        #creates and places label
         label_card_creation = Label(frame_teal_bar1, text="Card Cration", fg = DARK_RED, font = (FONT_TYPE, 35), background= LIGHT_TEAL)
         label_card_creation.place(y = 7, x = 10)
-
-        button_add_exit = Button(frame_teal_bar1, text = "Exit", fg = DARK_RED, font = (FONT_TYPE, 18), bg=RED, command= exit)
+        
+        #creates and places exit button
+        button_add_exit = Button(frame_teal_bar1, text = "Exit", fg = DARK_RED, font = (FONT_TYPE, 18), bg=RED, command= exit_output)
         button_add_exit.place(y = 13, x = 300)
 
+        #creates and places frame
         frame_teal_bar2 = Frame(frame_adding_page, bg = LIGHT_TEAL, width= TEAL_BAR_WIDTH, height= TEAL_BAR_HEIHGT)
         frame_teal_bar2.place(y = 120, x = 20)
 
+        #creates stength label
         label_strength = Label(frame_teal_bar2, text="Strength: ", fg = DARK_RED, font = (FONT_TYPE, 25), background= LIGHT_TEAL)
         label_strength.place(y = 8, x = 10)
 
+        #creates stength slider
         slider_strength = Scale(frame_teal_bar2, from_=1, to=25, orient=HORIZONTAL, bg=LIGHT_TEAL, troughcolor=DARK_TEAL, bd= 0, highlightthickness=0, fg = DARK_RED)
         slider_strength.place(y=8, x = SLIDER_XAXIS, width= SLIDER_WIDTH, height= SLIDER_HEIHGT)
 
+        #creates and places frame
         frame_teal_bar3 = Frame(frame_adding_page, bg = LIGHT_TEAL, width= TEAL_BAR_WIDTH, height= TEAL_BAR_HEIHGT)
         frame_teal_bar3.place(y = 230, x = 20)
 
+        #creates speed label
         label_speed = Label(frame_teal_bar3, text="Speed: ", fg = DARK_RED, font = (FONT_TYPE, 25), background= LIGHT_TEAL)
         label_speed.place(y = 8, x = 10)
 
+        #creates speed slider
         slider_speed = Scale(frame_teal_bar3, from_=1, to=25, orient=HORIZONTAL, bg=LIGHT_TEAL, troughcolor=DARK_TEAL, bd= 0, highlightthickness=0, fg = DARK_RED)
         slider_speed.place(y=8, x = SLIDER_XAXIS, width= SLIDER_WIDTH, height= SLIDER_HEIHGT)
 
+        #creates and places frame
         frame_teal_bar4 = Frame(frame_adding_page, bg = LIGHT_TEAL, width= TEAL_BAR_WIDTH, height= TEAL_BAR_HEIHGT)
         frame_teal_bar4.place(y = 340, x = 20)
 
+        #creates stealth label
         label_Stealth = Label(frame_teal_bar4, text="Stealth:", fg = DARK_RED, font = (FONT_TYPE, 25), background= LIGHT_TEAL)
         label_Stealth.place(y = 8, x = 10)
 
+        #creates stealth slider
         slider_stealth = Scale(frame_teal_bar4, from_=1, to=25, orient=HORIZONTAL, bg=LIGHT_TEAL, troughcolor=DARK_TEAL, bd= 0, highlightthickness=0, fg = DARK_RED)
         slider_stealth.place(y=8, x = SLIDER_XAXIS, width= SLIDER_WIDTH, height= SLIDER_HEIHGT)
 
+        #creates and places frame
         frame_teal_bar5 = Frame(frame_adding_page, bg = LIGHT_TEAL, width= TEAL_BAR_WIDTH, height= TEAL_BAR_HEIHGT)
         frame_teal_bar5.place(y = 450, x = 20)
 
+        #creates cunning label
         label_cunning = Label(frame_teal_bar5, text="Cunning:", fg = DARK_RED, font = (FONT_TYPE, 25), background= LIGHT_TEAL)
         label_cunning.place(y = 8, x = 10)
 
+        #creates cunnning slider
         slider_cunning = Scale(frame_teal_bar5, from_=1, to=25, orient=HORIZONTAL, bg=LIGHT_TEAL, troughcolor=DARK_TEAL, bd= 0, highlightthickness=0, fg = DARK_RED)
         slider_cunning.place(y=8, x = SLIDER_XAXIS, width= SLIDER_WIDTH, height= SLIDER_HEIHGT)
 
+        #enforses character limit
         entry_text = StringVar()
         entry_text.trace("w", enforce_limit)
+
+        #Makes and places entry box
         entry_name = Entry(frame_adding_page, textvariable=entry_text, background= DARK_TEAL, fg = "white", font = (FONT_TYPE, 10), bd=3)
         entry_name.place(y = 20, x = 450, width= 350, height= 30)  
 
+        #makes and places button option 1
         button_card_option1 = Button(frame_adding_page, image= monster_option1, width= 145, height= 213, command=chose_card1)
         button_card_option1.place(y = 65, x = 450)
         button_card_option1.image = monster_option1
 
+        #makes and places button option 2
         button_card_option2 = Button(frame_adding_page, image= monster_option2, width= 145, height= 213, command=chose_card2)
         button_card_option2.place(y = 65, x = 650)
         button_card_option2.image = monster_option2
 
+        #makes and places button option 3
         button_card_option3 = Button(frame_adding_page, image= monster_option3, width= 145, height= 213, command=chose_card3)
         button_card_option3.place(y = 300, x = 450)
         button_card_option3.image = monster_option3
         
+        #makes and places button option 4
         button_card_option4 = Button(frame_adding_page, image= monster_option4, width= 145, height= 213, command=chose_card4)
         button_card_option4.place(y = 300, x = 650)
         button_card_option4.image = monster_option4
 
+        #creates and places confirm button
         button_confirm = Button(frame_adding_page, text= "Confirm", fg = DARK_RED, bg=LIGHT_TEAL, font = (FONT_TYPE, 13), command= card_confirmation)
         button_confirm.place(y = 530, x = 20)
 
+        #creates and places cancel button
         button_cancel = Button(frame_adding_page, text="Cancel", fg = DARK_RED, font = (FONT_TYPE, 13), bg=LIGHT_TEAL, command= return_function)
         button_cancel.place(y = 530, x = 100)
 
+        #closes main page
         frame_mainpage.pack_forget()
+
+        #closes card confirmation page
         frame_card_confirmation.pack_forget()
+
+        #opens adding card page
         frame_adding_page.pack(fill = BOTH, expand= True)
+
+        #resizes root geometry
         root.geometry("840x570")
 
-def edit_save(d):
-    global card_id
+#Function were the edits are saves
+def edit_save():
 
+    #Globals variables
+    global card_id
+    global button_cardslot_8, button_cardslot_9, button_cardslot_10
+    global is_slot_8_free, is_slot_9_free, is_slot_10_free
+
+    #makes edited name equal to the edit page name entry
     edited_name = entry_name_edit.get()
 
-    edited_strength =  slider_strength_edit.get()
-    edited_speed = slider_speed_edit.get()
-    edited_stealth = slider_stealth_edit.get()
-    edited_cunning = slider_cunning_edit.get()
+    #checks if edited name is emptry
+    if (not edited_name):
 
-    edited_new_total = edited_strength + edited_speed + edited_stealth + edited_cunning
+        #makes error box
+        messagebox.showerror("missing monster name", "No name was input. Please chosse a name with up to 16 characters")
+        
+        #calls cand editing function
+        edit_cards()
 
-    keys_to_remove_in_current_level = []
-
-    for key, value in d.items():
-        if key == card_id:
-            keys_to_remove_in_current_level.append(key)
-        elif isinstance(value, dict):
-            remove_card(value, card_id)
-        elif isinstance(value, list):
-            for item in value:
-                if isinstance(item, dict):
-                    remove_card(item, card_id)
-
-    for key in keys_to_remove_in_current_level:
-        del d[key]
-
-    if (card_id == 8):
-        monsters[8] = { 
-        "monster_name": edited_name, 
-        "image_id": chosen_card,
-        "strength": edited_strength, 
-        "speed": edited_speed, 
-        "stealth": edited_stealth, 
-        "cunning": edited_cunning,
-        "total_score": edited_new_total
-        }    
-        button_cardslot_8 = Button(frame_mainpage, image = chosen_card, bg=DARK_TEAL, height = CARD_HEIGHT, width = CARD_WIDTH, command= id_8)
-        button_cardslot_8.place(y = BOTTOM_ROW_BUTTONS_YAXIS, x = 380)
-        button_cardslot_8.image = chosen_card
-
-    elif (card_id == 9):
-        monsters[9] = { 
-        "monster_name": edited_name, 
-        "image_id": chosen_card,
-        "strength": edited_strength, 
-        "speed": edited_speed, 
-        "stealth": edited_stealth, 
-        "cunning": edited_cunning,
-        "total_score": edited_new_total
-        } 
-        button_cardslot_9 = Button(frame_mainpage, image = chosen_card, bg=DARK_TEAL, height = CARD_HEIGHT, width = CARD_WIDTH, command= id_9)
-        button_cardslot_9.place(y = BOTTOM_ROW_BUTTONS_YAXIS, x = 520)
-        button_cardslot_9.image = chosen_card
-
-    elif (card_id == 10):
-        monsters[10] = { 
-        "monster_name": edited_name, 
-        "image_id": chosen_card,
-        "strength": edited_strength, 
-        "speed": edited_speed, 
-        "stealth": edited_stealth, 
-        "cunning": edited_cunning,
-        "total_score": edited_new_total
-        }    
-        button_cardslot_10 = Button(frame_mainpage, image = chosen_card, bg=DARK_TEAL, height = CARD_HEIGHT, width = CARD_WIDTH, command= id_10)
-        button_cardslot_10.place(y = BOTTOM_ROW_BUTTONS_YAXIS, x = 660)
-        button_cardslot_10.image = chosen_card
-
-    save_to_file()
-    return_function()
-
-def aditing_confirmation():
-    confirmation = messagebox.askquestion("confirm changes", "Do you want to confirm these changes?")
-    if (confirmation == "yes"):
-        messagebox.showinfo("Confirmed", "Your changes have been saved")
-        edit_save(d,)
     else:
-        messagebox.showinfo("Canceled", "Your changes have been descarted")
+
+        #Makes adited stats equal to edit page stat slider
+        edited_strength =  slider_strength_edit.get()
+        edited_speed = slider_speed_edit.get()
+        edited_stealth = slider_stealth_edit.get()
+        edited_cunning = slider_cunning_edit.get()
+
+        #coulculates edited new total
+        edited_new_total = edited_strength + edited_speed + edited_stealth + edited_cunning
+
+        #makes dictionary for keys to be removed
+        keys_to_remove_in_current_level = []
+
+        #calls remove card
+        remove_card(monsters, card_id)
+
+        #checks is card id is equal to 8
+        if (card_id == 8):
+
+            #adds 8 to monsters dictionary
+            monsters[8] = { 
+            "monster_name": edited_name, 
+            "image_id": chosen_card,
+            "strength": edited_strength, 
+            "speed": edited_speed, 
+            "stealth": edited_stealth, 
+            "cunning": edited_cunning,
+            "total_score": edited_new_total
+            } 
+
+            #deletes card button 8
+            button_cardslot_8.destroy()
+
+            #sets is slot 8 free to True
+            is_slot_8_free = True
+
+            #makes and places button 8 
+            button_cardslot_8 = Button(frame_mainpage, image = chosen_card, bg=DARK_TEAL, height = CARD_HEIGHT, width = CARD_WIDTH, command= id_8)
+            button_cardslot_8.place(y = BOTTOM_ROW_BUTTONS_YAXIS, x = 380)
+            button_cardslot_8.image = chosen_card
+
+            #sets is slot 8 free to Falce
+            is_slot_8_free = False
+        
+        #checks is card id is equal to 9
+        elif (card_id == 9):
+
+            #adds 9 to monsters dictionary
+            monsters[9] = { 
+            "monster_name": edited_name, 
+            "image_id": chosen_card,
+            "strength": edited_strength, 
+            "speed": edited_speed, 
+            "stealth": edited_stealth, 
+            "cunning": edited_cunning,
+            "total_score": edited_new_total
+            } 
+
+            #deletes card button 9
+            button_cardslot_9.destroy()
+
+            #sets is slot 9 free to True
+            is_slot_9_free = True
+
+            #makes and places button 9
+            button_cardslot_9 = Button(frame_mainpage, image = chosen_card, bg=DARK_TEAL, height = CARD_HEIGHT, width = CARD_WIDTH, command= id_9)
+            button_cardslot_9.place(y = BOTTOM_ROW_BUTTONS_YAXIS, x = 520)
+            button_cardslot_9.image = chosen_card
+            is_slot_9_free = False
+
+        #checks is card id is equal to 10
+        elif (card_id == 10):
+
+            #adds 10 to monsters dictionary
+            monsters[10] = { 
+            "monster_name": edited_name, 
+            "image_id": chosen_card,
+            "strength": edited_strength, 
+            "speed": edited_speed, 
+            "stealth": edited_stealth, 
+            "cunning": edited_cunning,
+            "total_score": edited_new_total
+            }    
+
+            #deletes card button 10
+            button_cardslot_10.destroy()
+
+            #sets is slot 10 free to True
+            is_slot_10_free = True
+
+            #makes and places button 10
+            button_cardslot_10 = Button(frame_mainpage, image = chosen_card, bg=DARK_TEAL, height = CARD_HEIGHT, width = CARD_WIDTH, command= id_10)
+            button_cardslot_10.place(y = BOTTOM_ROW_BUTTONS_YAXIS, x = 660)
+            button_cardslot_10.image = chosen_card
+            is_slot_10_free = False
+
+        #calls save to file function
+        save_to_file()
+
+        #calls return function
         return_function()
 
-def edit_cards():
+#Funtion were edit is confirmed 
+def editing_confirmation():
 
+    #makes confirmation equal to message box question
+    confirmation = messagebox.askquestion("confirm changes", "Do you want to confirm these changes?")
+
+    #checks if confirmation is equal to yes
+    if (confirmation == "yes"):
+
+        #makes message box
+        messagebox.showinfo("Confirmed", "Your changes have been saved")
+
+        #calls edit save funtion
+        edit_save()
+
+    else:
+
+        #makes message box
+        messagebox.showinfo("Canceled", "Your changes have been descarted")
+
+        #calls return function
+        return_function()
+
+#Funtion were cards are edited
+def edit_cards():
+    
+    #Globals variables
     global slider_strength_edit, slider_speed_edit, slider_stealth_edit, slider_cunning_edit
     global monster_option1, monster_option2, monster_option3, monster_option4
     global option1, option2, option3, option4
@@ -982,126 +1202,213 @@ def edit_cards():
     global entry_text
     global card_id
 
+    #makes frame
     frame_teal_bar1 = Frame(frame_card_editing, bg = LIGHT_TEAL, width= TEAL_BAR_WIDTH, height= 70)
     frame_teal_bar1.place(y = 10, x = 20)
 
-    label_card_creation = Label(frame_teal_bar1, text="Card Cration", fg = DARK_RED, font = (FONT_TYPE, 35), background= LIGHT_TEAL)
-    label_card_creation.place(y = 7, x = 10)
+    #makes label
+    label_card_editing = Label(frame_teal_bar1, text="Card Editing", fg = DARK_RED, font = (FONT_TYPE, 35), background= LIGHT_TEAL)
+    label_card_editing.place(y = 7, x = 10)
 
-    button_add_exit = Button(frame_teal_bar1, text = "Exit", fg = DARK_RED, font = (FONT_TYPE, 18), bg=RED, command= exit)
+    #makes exit button
+    button_add_exit = Button(frame_teal_bar1, text = "Exit", fg = DARK_RED, font = (FONT_TYPE, 18), bg=RED, command= exit_output)
     button_add_exit.place(y = 13, x = 300)
 
+    #makes frame
     frame_teal_bar2 = Frame(frame_card_editing, bg = LIGHT_TEAL, width= TEAL_BAR_WIDTH, height= TEAL_BAR_HEIHGT)
     frame_teal_bar2.place(y = 120, x = 20)
 
+    #makes strength label
     label_strength = Label(frame_teal_bar2, text="Strength: ", fg = DARK_RED, font = (FONT_TYPE, 25), background= LIGHT_TEAL)
     label_strength.place(y = 8, x = 10)
 
+    #makes strength slider
     slider_strength_edit = Scale(frame_teal_bar2, from_=1, to=25, orient=HORIZONTAL, bg=LIGHT_TEAL, troughcolor=DARK_TEAL, bd= 0, highlightthickness=0, fg = DARK_RED)
     slider_strength_edit.place(y=8, x = SLIDER_XAXIS, width= SLIDER_WIDTH, height= SLIDER_HEIHGT)
 
+    #makes frame
     frame_teal_bar3 = Frame(frame_card_editing, bg = LIGHT_TEAL, width= TEAL_BAR_WIDTH, height= TEAL_BAR_HEIHGT)
     frame_teal_bar3.place(y = 230, x = 20)
 
+    #makes speed label
     label_speed = Label(frame_teal_bar3, text="Speed: ", fg = DARK_RED, font = (FONT_TYPE, 25), background= LIGHT_TEAL)
     label_speed.place(y = 8, x = 10)
 
+    #makes speed slider
     slider_speed_edit = Scale(frame_teal_bar3, from_=1, to=25, orient=HORIZONTAL, bg=LIGHT_TEAL, troughcolor=DARK_TEAL, bd= 0, highlightthickness=0, fg = DARK_RED)
     slider_speed_edit.place(y=8, x = SLIDER_XAXIS, width= SLIDER_WIDTH, height= SLIDER_HEIHGT)
 
+    #makes frame
     frame_teal_bar4 = Frame(frame_card_editing, bg = LIGHT_TEAL, width= TEAL_BAR_WIDTH, height= TEAL_BAR_HEIHGT)
     frame_teal_bar4.place(y = 340, x = 20)
 
+    #makes stealth label
     label_Stealth = Label(frame_teal_bar4, text="Stealth:", fg = DARK_RED, font = (FONT_TYPE, 25), background= LIGHT_TEAL)
     label_Stealth.place(y = 8, x = 10)
 
+    #makes stealth slider
     slider_stealth_edit = Scale(frame_teal_bar4, from_=1, to=25, orient=HORIZONTAL, bg=LIGHT_TEAL, troughcolor=DARK_TEAL, bd= 0, highlightthickness=0, fg = DARK_RED)
     slider_stealth_edit.place(y=8, x = SLIDER_XAXIS, width= SLIDER_WIDTH, height= SLIDER_HEIHGT)
 
+    #makes frame
     frame_teal_bar5 = Frame(frame_card_editing, bg = LIGHT_TEAL, width= TEAL_BAR_WIDTH, height= TEAL_BAR_HEIHGT)
     frame_teal_bar5.place(y = 450, x = 20)
 
+    #makes cunning label
     label_cunning = Label(frame_teal_bar5, text="Cunning:", fg = DARK_RED, font = (FONT_TYPE, 25), background= LIGHT_TEAL)
     label_cunning.place(y = 8, x = 10)
 
+    #makes cunning slider
     slider_cunning_edit = Scale(frame_teal_bar5, from_=1, to=25, orient=HORIZONTAL, bg=LIGHT_TEAL, troughcolor=DARK_TEAL, bd= 0, highlightthickness=0, fg = DARK_RED)
     slider_cunning_edit.place(y=8, x = SLIDER_XAXIS, width= SLIDER_WIDTH, height= SLIDER_HEIHGT)
 
+    #enforces character limit
     entry_text = StringVar()
     entry_text.trace("w", enforce_limit)
+
+    #makes entry box
     entry_name_edit = Entry(frame_card_editing, textvariable=entry_text, background= DARK_TEAL, fg = "white", font = (FONT_TYPE, 10), bd=3)
     entry_name_edit.place(y = 20, x = 450, width= 350, height= 30)  
 
+    #makes option 1 button
     button_edditing_card_option1 = Button(frame_card_editing, image= monster_option1, width= 145, height= 213, command=chose_card1)
     button_edditing_card_option1.place(y = 65, x = 450)
     button_edditing_card_option1.image = monster_option1
 
+    #makes option 2 button
     button_edditing_card_option2 = Button(frame_card_editing, image= monster_option2, width= 145, height= 213, command=chose_card2)
     button_edditing_card_option2.place(y = 65, x = 650)
     button_edditing_card_option2.image = monster_option2
 
+    #makes option 3 button
     button_edditing_card_option3 = Button(frame_card_editing, image= monster_option3, width= 145, height= 213, command=chose_card3)
     button_edditing_card_option3.place(y = 300, x = 450)
     button_edditing_card_option3.image = monster_option3
     
+    #makes option 4 button
     button_edditing_card_option4 = Button(frame_card_editing, image= monster_option4, width= 145, height= 213, command=chose_card4)
     button_edditing_card_option4.place(y = 300, x = 650)
     button_edditing_card_option4.image = monster_option4
 
-    button_confirm = Button(frame_card_editing, text= "Confirm", fg = DARK_RED, bg=LIGHT_TEAL, font = (FONT_TYPE, 13), command= aditing_confirmation)
+    #makes confirm button
+    button_confirm = Button(frame_card_editing, text= "Confirm", fg = DARK_RED, bg=LIGHT_TEAL, font = (FONT_TYPE, 13), command= editing_confirmation)
     button_confirm.place(y = 530, x = 20)
 
+    #makes cancel button
     button_cancel = Button(frame_card_editing, text="Cancel", fg = DARK_RED, font = (FONT_TYPE, 13), bg=LIGHT_TEAL, command= return_function)
     button_cancel.place(y = 530, x = 100)
 
+    #closes main page
     frame_mainpage.pack_forget()
+
+    #closes card preview page
     frame_card_preview.pack_forget()
+
+    #opens card editing page
     frame_card_editing.pack(fill=BOTH, expand=True)
+
+    #resizes root geometry
     root.geometry("840x570")    
 
+    #checks if card id is equal to or smaller than 7
     if (card_id <= 7):
+
+        #Makes message box
         messagebox.showerror("invalid card", "You can not edit one of the 7 original cards")
+
+        #calls return function
         return_function()
 
+#Funtion were json file is outputed
 def output():
     
+    #opens json file
     with open('monster.json', 'r') as json_file:
+        
+        #makes saved json equal to what is saved in json file
         saved_json = json.load(json_file)
 
+    #configs label to equal what is in saved json
     label_output.config(text = (json.dumps(saved_json, indent=1)))
 
+    #closes main page
     frame_mainpage.pack_forget()
+
+    #opens output page
     frame_output.pack(fill = BOTH, expand = True)
+
+    #resizes root geometry
     root.geometry("300x760")
 
+#Funtion were monsters are searched
 def search_for_monster():
+
+    #globals variable
     global card_id
 
+    #makes card to searh equal to search box input
     card_to_search = entry_searchbar.get()
 
+    #loops through monsters
     for each in monsters:
+
+        #checks if card to search is equal to current monster name
         if (card_to_search == monsters[each]["monster_name"]):
+
+            #makes card is equal to each
             card_id = each
+
+            #calls card preview
             card_preview()
 
+#Function were exit output is done
+def exit_output():
+
+    #opens json file
+    with open('monster.json', 'r') as json_file:
+        
+        #makes saved json equal to what is saved in json file
+        saved_json = json.load(json_file)
+
+    #configs label to equal what is in saved json
+    label_exit_output.config(text = (json.dumps(saved_json, indent=1)))
+
+    #closes main page
+    frame_mainpage.pack_forget()
+
+    #opens output page
+    frame_exit_output.pack(fill = BOTH, expand = True)
+
+    #resizes root geometry
+    root.geometry("300x760")
+#--------------------------Main---------------------------
+
+#makes cards added equal to 0
 cards_added = 0
 
+#makes is picked equal to False
 is_picked = False
 
+#Makes all the is slot free equal to True
 is_slot_8_free = True
 is_slot_9_free = True
 is_slot_10_free = True
 
+#makes Card id equal to 0
 card_id = 0
 
+#makes index equal to 1
 index = 1
 
+#makes a root
 root = Tk()
 root.title ("Monster Catalogue")
 root.geometry("840x570")
 
+#calls open images function
 open_images()
 
+#monster nested dictionary
 monsters= {
     1 : {
         "monster_name": "Vexscream", 
@@ -1168,165 +1475,227 @@ monsters= {
     }
 }
 
+#makes main page frame
 frame_mainpage = Frame(root, bg=DARK_TEAL)
 frame_mainpage.pack(fill=BOTH, expand=True)
 
+#Calls sort cards funtion
 sort_cards()
 
+#makes frame
 frame_graytbox = Frame(frame_mainpage, bg = GRAY_COLOUR, width = 775, height = 220)
 frame_graytbox.place(y = 10, x = 35)
 
+#makes label
 label_maintitle = Label(frame_graytbox, text = "Monster Catalogue", fg = DARK_RED, font = (FONT_TYPE, 35), bg=GRAY_COLOUR)
 label_maintitle.place(y = 5, x = 170)
 
-button_main_exit = Button(frame_graytbox, text="Exit", fg = DARK_RED, font = (FONT_TYPE, 16), bg=RED, command= exit)
+#makes exit button
+button_main_exit = Button(frame_graytbox, text="Exit", fg = DARK_RED, font = (FONT_TYPE, 16), bg=RED, command= exit_output)
 button_main_exit.place(y = 4, x = 715)
 
+#makes adding button
 button_add= Button(frame_graytbox, text="Add", fg = DARK_RED, font = (FONT_TYPE, 18), bg=LIGHT_TEAL, command= adding_page)
 button_add.place(y = 85, x = 120)
 
+#makes sort button
 button_sort = Button(frame_graytbox, text="Sort", fg = DARK_RED, font = (FONT_TYPE, 18), bg=LIGHT_TEAL, command = incriment_index)
 button_sort.place(y = 85, x = 345)
 
+#makes print button
 button_print = Button(frame_graytbox, text="Print", fg = DARK_RED, font = (FONT_TYPE, 18), bg=LIGHT_TEAL, command = output)
 button_print.place(y = 85, x = 570)
 
+#makes entry box
 entry_searchbar = Entry(frame_graytbox, text="search", fg = DARK_RED, font = (FONT_TYPE, 10), bg=GRAY_COLOUR)
 entry_searchbar.place(y = 170, x = 40, width = 580, height = 30)
 
+#makes search button
 button_search = Button(frame_graytbox, text="Search", fg = DARK_RED, font = (FONT_TYPE, 13), bg=LIGHT_TEAL, command = search_for_monster)
 button_search.place(y = 167, x = 640)
 
+#card slot button 1
 button_cardslot_1 = Button(frame_mainpage, image = monster_photo1, height = CARD_HEIGHT, width = CARD_WIDTH, command= id_1)
 button_cardslot_1.place(y = TOP_ROW_BUTTONS_YAXIS, x = 100)
 button_cardslot_1.image = monster_photo1
 
+#card slot button 2
 button_cardslot_2 = Button(frame_mainpage, image= monster_photo2, height = CARD_HEIGHT, width = CARD_WIDTH, command= id_2)
 button_cardslot_2.place(y = TOP_ROW_BUTTONS_YAXIS, x = 240)
 button_cardslot_2.image = monster_photo2
 
+#card slot button 3
 button_cardslot_3 = Button(frame_mainpage, image= monster_photo3, height = CARD_HEIGHT, width = CARD_WIDTH, command= id_3)
 button_cardslot_3.place(y = TOP_ROW_BUTTONS_YAXIS, x = 380)
 button_cardslot_3.image = monster_photo3
 
+#card slot button 4
 button_cardslot_4 = Button(frame_mainpage, image= monster_photo4, height = CARD_HEIGHT, width = CARD_WIDTH, command= id_4)
 button_cardslot_4.place(y = TOP_ROW_BUTTONS_YAXIS, x = 520)
 button_cardslot_4.image = monster_photo4
 
+#card slot button 5
 button_cardslot_5 = Button(frame_mainpage, image= monster_photo5, height = CARD_HEIGHT, width = CARD_WIDTH, command= id_5)
 button_cardslot_5.place(y = TOP_ROW_BUTTONS_YAXIS, x = 660)
 button_cardslot_5.image = monster_photo5
 
+#card slot button 6
 button_cardslot_6 = Button(frame_mainpage, image= monster_photo6, height = CARD_HEIGHT, width = CARD_WIDTH, command= id_6)
 button_cardslot_6.place(y = BOTTOM_ROW_BUTTONS_YAXIS, x = 100)
 button_cardslot_6.image = monster_photo6
 
+#card slot button 7
 button_cardslot_7 = Button(frame_mainpage, image= monster_photo7, height = CARD_HEIGHT, width = CARD_WIDTH, command= id_7)
 button_cardslot_7.place(y = BOTTOM_ROW_BUTTONS_YAXIS, x = 240)
 button_cardslot_7.image = monster_photo7
 
+#Makes card preview frame
 frame_card_preview = Frame(root, bg=DARK_TEAL)
 
+#opens placeholder image
 image_placeholder = "PLACEHOLDER.png"
 image_monster = Image.open(image_placeholder)
 image_monster = image_monster.resize((PREVIEW_RESIZE_WIDTH,PREVIEW_RESIZE_HEIGHT), Image.LANCZOS)
 image_monster = ImageTk.PhotoImage(image_monster)
+
+#opens image monster as label
 label_preview_image = Label(frame_card_preview, image=image_monster, width=320, height=360)
 label_preview_image.place(y = 15, x = 15)
 
+#makes strength label
 label_strength = Label(frame_card_preview, text="Srength:", fg = DARK_RED, font = (FONT_TYPE, STATS_FONT_SIZE), bg=LIGHT_TEAL )
 label_strength.place(y = 390, x = STATS_LABELS_XAXIS, width= 105)
 
+#makes strength stat label
 strength_stat = Label(frame_card_preview, text="", fg = DARK_RED, font = (FONT_TYPE, STATS_FONT_SIZE), bg=DARK_TEAL )
 strength_stat.place(y = 390, x = STATS_XAXIS)
 
+#makes speed label
 label_speed = Label(frame_card_preview, text="Speed:", fg = DARK_RED, font = (FONT_TYPE, STATS_FONT_SIZE), bg=LIGHT_TEAL )
 label_speed.place(y = 430, x = STATS_LABELS_XAXIS, width= 105)
 
+#makes speed stat label
 speed_stat = Label(frame_card_preview, text="", fg = DARK_RED, font = (FONT_TYPE, STATS_FONT_SIZE), bg=DARK_TEAL )
 speed_stat.place(y = 430, x = STATS_XAXIS)
 
+#makes stealth label
 label_Stealth = Label(frame_card_preview, text="Stealth:", fg = DARK_RED, font = (FONT_TYPE, STATS_FONT_SIZE), bg=LIGHT_TEAL )
 label_Stealth.place(y = 470, x = STATS_LABELS_XAXIS, width= 105)
 
+#makes stealth stat label
 sneak_stat = Label(frame_card_preview, text="", fg = DARK_RED, font = (FONT_TYPE, STATS_FONT_SIZE), bg=DARK_TEAL )
 sneak_stat.place(y = 470, x = STATS_XAXIS)
 
+#makes cunning label
 label_cunning = Label(frame_card_preview, text="Cunning:", fg = DARK_RED, font = (FONT_TYPE, STATS_FONT_SIZE), bg=LIGHT_TEAL )
 label_cunning.place(y = 510, x = STATS_LABELS_XAXIS, width= 105)
 
+#makes cunning stat label
 cunning_stat = Label(frame_card_preview, text="", fg = DARK_RED, font = (FONT_TYPE, STATS_FONT_SIZE), bg=DARK_TEAL )
 cunning_stat.place(y = 510, x = STATS_XAXIS)
 
+#makes total label
 label_total = Label(frame_card_preview, text="Total:", fg = DARK_RED, font = (FONT_TYPE, STATS_FONT_SIZE), bg=LIGHT_TEAL )
 label_total.place(y = 550, x = STATS_LABELS_XAXIS, width= 105)
 
+#makes total stat label
 total_stat = Label(frame_card_preview, text="", fg = DARK_RED, font = (FONT_TYPE, STATS_FONT_SIZE), bg=DARK_TEAL )
 total_stat.place(y = 550, x = STATS_XAXIS)
 
+#makes return button
 button_return = Button(frame_card_preview, text="Return", fg = DARK_RED, font = (FONT_TYPE, 14), bg=LIGHT_TEAL, command= return_function)
 button_return.place(y = 600, x = 320)
 
-button_card_exit = Button(frame_card_preview, text="Exit", fg = DARK_RED, font = (FONT_TYPE, 16), bg=RED, command= exit)
+#makes exit button
+button_card_exit = Button(frame_card_preview, text="Exit", fg = DARK_RED, font = (FONT_TYPE, 16), bg=RED, command= exit_output)
 button_card_exit.place(y = 12, x = 380)
 
+#makes name label
 label_preview_name = Label(frame_card_preview, text = "placeholder", fg = DARK_RED, font = (FONT_TYPE, 14), bg=LIGHT_TEAL)
 label_preview_name.place(y = 385, x = 197)
 
+#make edit button
 button_edit = Button(frame_card_preview, text="Edit", fg = DARK_RED, font = (FONT_TYPE, 18), bg=LIGHT_TEAL, command = edit_cards)
 button_edit.place(y = 550, x = 330)
 
+#makes adding page frame
 frame_adding_page = Frame(root, bg=DARK_TEAL)
 
+#makes card confirmation frame
 frame_card_confirmation = Frame(root, bg = DARK_TEAL)
 
+#makes strength label
 label_strength = Label(frame_card_confirmation, text="strength:", fg = DARK_RED, font = (FONT_TYPE, STATS_FONT_SIZE), bg=LIGHT_TEAL )
 label_strength.place(y = 390, x = STATS_LABELS_XAXIS, width= 105)
 
+#makes strength stat label
 label_strength_stat = Label(frame_card_confirmation, text=" ", fg = DARK_RED, font = (FONT_TYPE, STATS_FONT_SIZE), bg=DARK_TEAL )
 label_strength_stat.place(y = 390, x = STATS_XAXIS)
 
+#makes speed label
 label_speed = Label(frame_card_confirmation, text="Speed:", fg = DARK_RED, font = (FONT_TYPE, STATS_FONT_SIZE), bg=LIGHT_TEAL )
 label_speed.place(y = 430, x = STATS_LABELS_XAXIS, width= 105)
 
+#makes speed stat label
 label_speed_stat = Label(frame_card_confirmation, text=" ", fg = DARK_RED, font = (FONT_TYPE, STATS_FONT_SIZE), bg=DARK_TEAL )
 label_speed_stat.place(y = 430, x = STATS_XAXIS)
 
+#makes stealth label
 label_Stealth = Label(frame_card_confirmation, text="Stealth:", fg = DARK_RED, font = (FONT_TYPE, STATS_FONT_SIZE), bg=LIGHT_TEAL )
 label_Stealth.place(y = 470, x = STATS_LABELS_XAXIS, width= 105)
 
+#makes stealth stat label
 label_sneak_stat = Label(frame_card_confirmation, text=" ", fg = DARK_RED, font = (FONT_TYPE, STATS_FONT_SIZE), bg=DARK_TEAL )
 label_sneak_stat.place(y = 470, x = STATS_XAXIS)
 
+#makes cunning label
 label_cunning = Label(frame_card_confirmation, text="Cunning:", fg = DARK_RED, font = (FONT_TYPE, STATS_FONT_SIZE), bg=LIGHT_TEAL )
 label_cunning.place(y = 510, x = STATS_LABELS_XAXIS, width= 105)
 
+#makes cunning stat label
 label_cunning_stat = Label(frame_card_confirmation, text=" ", fg = DARK_RED, font = (FONT_TYPE, STATS_FONT_SIZE), bg=DARK_TEAL )
 label_cunning_stat.place(y = 510, x = STATS_XAXIS)
 
+#makes total label
 label_total = Label(frame_card_confirmation, text="Total:", fg = DARK_RED, font = (FONT_TYPE, STATS_FONT_SIZE), bg=LIGHT_TEAL )
 label_total.place(y = 550, x = STATS_LABELS_XAXIS, width= 105)
 
+#makes total stat label
 label_total_stat = Label(frame_card_confirmation, text=" ", fg = DARK_RED, font = (FONT_TYPE, STATS_FONT_SIZE), bg=DARK_TEAL )
 label_total_stat.place(y = 550, x = STATS_XAXIS)
 
+#makes cancel button
 button_cancel = Button(frame_card_confirmation, text="Cancel", fg = DARK_RED, font = (FONT_TYPE, 14), bg=LIGHT_TEAL, command= adding_page)
 button_cancel.place(y = 600, x = 50)
 
-button_card_exit = Button(frame_card_confirmation, text="Exit", fg = DARK_RED, font = (FONT_TYPE, 16), bg=RED, command= exit)
+#makes exit button
+button_card_exit = Button(frame_card_confirmation, text="Exit", fg = DARK_RED, font = (FONT_TYPE, 16), bg=RED, command= exit_output)
 button_card_exit.place(y = 12, x = 380)
 
+#makes accept button
 button_accept = Button(frame_card_confirmation, text="Accept", fg = DARK_RED, font = (FONT_TYPE, 16), bg=LIGHT_TEAL, command= save_card)
 button_accept.place(y = 600, x = 350)
 
+#makes output frame
 frame_output = Frame(root, bg=DARK_TEAL)
 
+#makes output label
 label_output = Label(frame_output, text = "placeholder", fg = "white", font = (FONT_TYPE, 5), bg="black")
 label_output.pack()
 
+#makes return button
 button_return = Button(frame_output, text="Return", fg = DARK_RED, font = (FONT_TYPE, 10), bg=LIGHT_TEAL, command= return_function)
 button_return.place(y = 20, x = 20)
 
+#makes card editign frame
 frame_card_editing = Frame(root, bg=DARK_TEAL)
 
+#makes exit output frame
+frame_exit_output = Frame(root, bg=DARK_TEAL)
+
+#makes exit output label
+label_exit_output = Label(frame_exit_output, text = "placeholder", fg = "white", font = (FONT_TYPE, 5), bg="black")
+label_exit_output.pack()
+
+#main loop
 root.mainloop()
