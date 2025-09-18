@@ -910,7 +910,7 @@ def adding_page():
     global cards_added
 
     #checks if cards added is equal to 3
-    if (cards_added == 3):
+    if (cards_added >= 3):
 
         #makes error box
         messagebox.showerror("Maximum card limit reached", "You have reached the maximum card limit of 10")
